@@ -1,11 +1,12 @@
 * {
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  text-decoration: none;
   body {
-
     background-color: $light;
   };
   p,span,button,input,a,h5,h6 {
+    color: black;
     font-size: 12px;
     @include min-sm {
       font-size: 16px;
@@ -56,6 +57,7 @@ button, input[type=submit], .button {
   background-color: $light;
   cursor: pointer;
   padding: $rad $pad-min;
+  border-width: 2px;
   border-style: solid;
   transition: 0.2s;
   &:hover:not(.dark) {

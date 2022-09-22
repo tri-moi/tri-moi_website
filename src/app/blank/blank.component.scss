@@ -1,0 +1,15 @@
+//LIGNE A AJOUTER A CHAQUE COMPOSANT
+@import '~src/assets/scss/variables';
+
+.demo {
+  padding: 15px;
+  &--box {
+    background-color: darkgray;
+    &_title {
+      text-decoration: underline 1px;
+    }
+    &_content {
+      color: $light;
+    }
+  }
+}
