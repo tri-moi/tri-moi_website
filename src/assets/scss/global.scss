@@ -5,7 +5,7 @@
 
     background-color: $light;
   };
-  p,button,input,a,h5,h6 {
+  p,span,button,input,a,h5,h6 {
     font-size: 12px;
     @include min-sm {
       font-size: 16px;
@@ -13,6 +13,43 @@
   }
   h1,h2,h3,h4,h5,h6 {
     font-weight: 800;
+
+  }
+  h1 {
+    font-size: 56px;
+    @include min-sm {
+      font-size: 60px;
+    }
+  }
+  h2 {
+    font-size: 46px;
+    @include min-sm {
+      font-size: 50px;
+    }
+  }
+  h3 {
+    font-size: 36px;
+    @include min-sm {
+      font-size: 40px;
+    }
+  }
+  h4 {
+    font-size: 26px;
+    @include min-sm {
+      font-size: 30px;
+    }
+  }
+  h5 {
+    font-size: 16px;
+    @include min-sm {
+      font-size: 20px;
+    }
+  }
+  h6 {
+    font-size: 12px;
+    @include min-sm {
+      font-size: 16px;
+    }
   }
 }
 button, input[type=submit], .button {
