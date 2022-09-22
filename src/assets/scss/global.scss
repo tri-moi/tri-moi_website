@@ -1,0 +1,37 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  body {
+
+    background-color: $light;
+  };
+  p,button,input,a,h5,h6 {
+    font-size: 12px;
+    @include min-sm {
+      font-size: 16px;
+    }
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: 800;
+  }
+}
+button, input[type=submit], .button {
+  background-color: $light;
+  cursor: pointer;
+  padding: $rad $pad-min;
+  border-style: solid;
+  transition: 0.2s;
+  &:hover:not(.dark) {
+    filter: brightness(90%);
+  }
+  &.dark {
+    color: $light;
+    background-color: black;
+    border: none;
+    &:hover {
+      color: black;
+      background-color: $light;
+      outline: 2px solid black;
+    }
+  }
+}
