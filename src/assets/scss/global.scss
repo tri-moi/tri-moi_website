@@ -59,7 +59,7 @@ button, input[type=submit], .button {
   padding: $rad $pad-min;
   border-width: 2px;
   border-style: solid;
-  transition: 0.2s;
+  transition: 0.1s;
   &:hover:not(.dark) {
     filter: brightness(90%);
   }
