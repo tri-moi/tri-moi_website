@@ -100,8 +100,13 @@
             ],
             "scripts": []
           }
-        }
-      }
+        },
+
+      },
+
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
