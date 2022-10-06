@@ -16,6 +16,7 @@
 
 .colors {
   display: flex;
+  flex-wrap: wrap;
   &--single {
     border: 2px solid black;
     height: 120px;
