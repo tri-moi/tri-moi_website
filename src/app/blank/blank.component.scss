@@ -13,3 +13,34 @@
     }
   }
 }
+
+.colors {
+  display: flex;
+  &--single {
+    border: 2px solid black;
+    height: 120px;
+    width: 120px;
+    &.dark {
+      background-color: $dark;
+    }
+    &.error {
+      background-color: $error;
+    }
+    &.warning {
+      background-color: $warning;
+    }
+    &.success {
+      background-color: $success;
+    }
+    &.green {
+      background-color: $green;
+    }
+    &.blue {
+      background-color: $blue;
+    }
+    &.brown {
+      background-color: $brown;
+    }
+
+  }
+}
