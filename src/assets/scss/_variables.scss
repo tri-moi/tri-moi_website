@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700;800&display=swap');
+
+//Colors
+$light : #f7f6e4;
+$dark: #52575D;
+$error : #F46060;
+$warning : #F3D179;
+$success : #5c9627;
+$green: #C4DFAA;
+$blue: #73A9AD;
+$brown: #C98474;
+
+$rad : 5px;
+$rad-double : 10px;
+$pad: 25px;
+$pad-min: 15px;
+$pad-large: 35px;
+$pad-double: 50px;
+
+//responsive breakpoints
+$screen-sm:481px;
+$screen-md:768px;
+$screen-lg:992px;
+$screen-xl:1200px;
+
+@mixin min-sm {
+  @media (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+@mixin min-md {
+  @media (min-width: #{$screen-md}) {
+    @content;
+  }
+}
+@mixin min-lg {
+  @media (min-width: #{$screen-lg}) {
+    @content;
+  }
+}
+@mixin min-lg {
+  @media (min-width: #{$screen-xl}) {
+    @content;
+  }
+}
+
+
