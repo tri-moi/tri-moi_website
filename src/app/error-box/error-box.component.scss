@@ -1,0 +1,12 @@
+@import '~src/assets/scss/variables';
+
+.box {
+  width: 100%;
+  min-width: 300px;
+  text-align: center;
+  background-color: $error;
+  padding: $pad-min 0;
+  h4 {
+    margin: 0;
+  }
+}

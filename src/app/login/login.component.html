@@ -1,1 +1,10 @@
-<p>login works!</p>
+<h3>Login : </h3>
+
+<form action="" (submit)="submitLogin()">
+  <app-error-box *ngIf="errorLogin" class="error-box" [error]="'Invalid email/password combination.'"></app-error-box>
+  <label for="email">E-mail : </label>
+  <input [(ngModel)]="formData.email" type="text" name="email" id="email">
+  <label for="password">Password : </label>
+  <input [(ngModel)]="formData.password" type="text" name="password" id="password">
+  <input type="submit">
+</form>
