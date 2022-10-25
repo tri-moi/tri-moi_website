@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './blank/blank.component';
 import { MapComponent } from './map/map.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 

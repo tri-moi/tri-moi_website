@@ -1,6 +1,13 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import algoliasearch from 'algoliasearch/lite';
+import { environment } from '../../environments/environment'
 
+const searchClient = algoliasearch(
+  environment.algolia_id,
+  environment.algolia_key
+);
+const index = searchClient.initIndex('pav');
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -28,5 +35,12 @@ export class MapComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initMap();
+    index.search('',{hitsPerPage: 50,}).then(({ hits }) => {
+      console.log(hits);
+      hits.forEach(hit => {
+        // @ts-ignore
+        let marker = L.marker([hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1]]).addTo(this.map);
+      })
+    });
   }
 }

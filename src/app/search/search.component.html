@@ -1,0 +1,11 @@
+<ais-instantsearch [config]="config">
+  <ais-hits>
+    <ng-template let-hits="hits">
+      <ol class="ais-Hits-list">
+        <li *ngFor="let hit of hits" class="ais-Hits-item">
+          {{hit.datasetid}}
+        </li>
+      </ol>
+    </ng-template>
+  </ais-hits>
+</ais-instantsearch>
