@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     this._router = _router;
   }
 
+  fromRegister=false
   // @ts-ignore
   formData = {
     email: null,
@@ -38,6 +39,10 @@ export class LoginComponent implements OnInit {
           localStorage.removeItem('user')
           localStorage.setItem('isLoggedIn', 'false')
           this._router.navigateByUrl('/')
+        } else if (action === 'alreadyExists') {
+          let email = params['email']
+          this.fromRegister = true
+          this.formData.email = email
         }
       })
   }

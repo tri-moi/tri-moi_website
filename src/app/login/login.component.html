@@ -1,6 +1,7 @@
 <h3>Login : </h3>
 
 <form action="" (submit)="submitLogin()">
+  <app-error-box *ngIf="fromRegister" class="error-box" [error]="'Un compte existe déjà sous cette adresse e-mail, veuillez vous connecter.'"></app-error-box>
   <app-error-box *ngIf="errorLogin" class="error-box" [error]="'Invalid email/password combination.'"></app-error-box>
   <label for="email">E-mail : </label>
   <input [(ngModel)]="formData.email" type="text" name="email" id="email">

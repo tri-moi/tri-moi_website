@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { BlankComponent } from './blank/blank.component';
 import { ErrorBoxComponent } from './error-box/error-box.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { ErrorBoxComponent } from './error-box/error-box.component';
     LoginComponent,
     BlankComponent,
     ErrorBoxComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
