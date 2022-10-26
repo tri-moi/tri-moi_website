@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { BlankComponent } from './blank/blank.component';
 import { MapComponent } from './map/map.component';
 import { SearchComponent } from './search/search.component';
-
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +19,9 @@ import { SearchComponent } from './search/search.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgAisModule.forRoot()
+    NgAisModule.forRoot(),
+    LeafletModule,
+    LeafletMarkerClusterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

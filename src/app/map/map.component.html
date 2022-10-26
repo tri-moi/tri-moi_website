@@ -1,5 +1,11 @@
+<div *ngIf="loading">
+  LOADING
+</div>
 <div class="map-container">
   <div class="map-frame">
-    <div id="map"></div>
+    <div id="map" leaflet [leafletOptions]="options" [leafletLayers]="layers" ></div>
   </div>
 </div>
+<button (click)="addToFilters('fields.pavtyp', 'Emballages en verre')">
+  Verre
+</button>
