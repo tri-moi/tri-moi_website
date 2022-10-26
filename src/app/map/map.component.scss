@@ -30,7 +30,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-top: solid 2px #161616;
   border-bottom: solid 2px #161616;
   padding: 0 10px;
 }
@@ -73,4 +72,34 @@
 
 .binType img {
   width: 30px;
+}
+
+#glassFilter:hover,
+#glassFiler:active{
+  background-color: #C4DFAA;
+}
+
+#plasticFilter:hover,
+#plasticFiler:active{
+  background-color: #F3D179;
+}
+
+#metalFilter:hover,
+#metalFiler:active{
+  background-color: #F46060;
+}
+
+#cardboardFilter:hover,
+#cardboardFiler:active{
+  background-color: #F3D179;
+}
+
+#paperFilter:hover,
+#paperFiler:active{
+  background-color: #73A9AD;
+}
+
+#trashFilter:hover,
+#trashFiler:active{
+  background-color: #52575D;
 }
