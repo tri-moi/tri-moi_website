@@ -3,12 +3,20 @@ p {
   text-align: center;
 }
 
+h3 {
+  margin-bottom: 40px;
+}
+
 img {
   width: 160px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   margin-bottom: 40px;
+}
+
+.formLabel {
+  display: none;
 }
 
 input {
@@ -18,6 +26,7 @@ input {
 .button {
   margin-right: auto;
   margin-left: auto;
+  margin-bottom: 30px;
 }
 
 a {
@@ -25,4 +34,8 @@ a {
 &:hover {
    text-decoration: underline;
  }
+}
+
+.formContainer {
+  margin: 50px 0;
 }

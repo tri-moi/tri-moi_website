@@ -23,10 +23,6 @@ input:focus {
   outline: none;
 }
 
-label {
-  display: none;
-}
-
 //BUTTONS
 
 .button {
@@ -50,12 +46,6 @@ label {
 .button:hover .buttonBlackText {
   color: $black;
 }
-
-//.buttonGreen,
-//.buttonBlack {
-//  background-size: 200% 100%;
-//  background-position: right bottom;
-//}
 
 .buttonGreen {
   background: linear-gradient(to right, $black 50%, $green 50%);
@@ -210,6 +200,10 @@ nav ul li a:active,
 
 #contactLinkHeader {
   background-color: $green;
+  &:hover {
+    color: $white;
+    background-color: $black;
+  }
 }
 
 nav .menu-btn i {

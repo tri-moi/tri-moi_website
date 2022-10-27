@@ -33,7 +33,7 @@
     }
   }
   h3 {
-    font-size: px;
+    font-size: 40px;
     @include min-sm {
       font-size: 36px;
     }
@@ -64,24 +64,24 @@
     flex-direction: column;
   }
 }
-button, input[type=submit], .button {
-  background-color: $light;
-  cursor: pointer;
-  padding: $rad $pad-min;
-  border-width: 2px;
-  border-style: solid;
-  transition: 0.1s;
-  &:hover:not(.dark) {
-    filter: brightness(90%);
-  }
-  &.dark {
-    color: $light;
-    background-color: black;
-    border: none;
-    &:hover {
-      color: black;
-      background-color: $light;
-      outline: 2px solid black;
-    }
-  }
-}
+//button, input[type=submit], .button {
+//  background-color: $light;
+//  cursor: pointer;
+//  padding: $rad $pad-min;
+//  border-width: 2px;
+//  border-style: solid;
+//  transition: 0.1s;
+//  &:hover:not(.dark) {
+//    filter: brightness(90%);
+//  }
+//  &.dark {
+//    color: $light;
+//    background-color: black;
+//    border: none;
+//    &:hover {
+//      color: black;
+//      background-color: $light;
+//      outline: 2px solid black;
+//    }
+//  }
+//}
