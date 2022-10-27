@@ -1,9 +1,42 @@
 <div *ngIf="loading">
   LOADING
 </div>
-<div class="map-container">
-  <div class="map-frame">
-    <div id="map" leaflet [leafletOptions]="options" [leafletLayers]="layers" ></div>
+<div id="mapContainer">
+  <div id="locationSearch">
+    <img src="./assets/images/icons8-search-100.png">
+    <input type="text" placeholder="RECHERCHE">
+    <img src="./assets/images/icons8-location-80.png">
+  </div>
+  <div class="map-container">
+    <div class="map-frame">
+      <div id="map" leaflet [leafletOptions]="options" [leafletLayers]="layers" ></div>
+    </div>
+  </div>
+  <div id="binFilter">
+    <button id="glassFilter" class="binType">
+      <img src="./assets/images/icons8-glass-bottle-64.png">
+      <p>verre</p>
+    </button>
+    <button id="plasticFilter" class="binType">
+      <img src="./assets/images/icons8-plastic-bottle-64.png">
+      <p>plastique</p>
+    </button>
+    <button id="metalFilter" class="binType">
+      <img src="./assets/images/icons8-soda-64.png">
+      <p>métal</p>
+    </button>
+    <button id="cardboardFilter" class="binType">
+      <img src="./assets/images/icons8-cardboard-64.png">
+      <p>carton</p>
+    </button>
+    <button id="paperFilter" class="binType">
+      <img src="./assets/images/icons8-paper-stack-64.png">
+      <p>papier</p>
+    </button>
+    <button id="trashFilter" class="binType">
+      <img src="./assets/images/icons8-bin-64.png">
+      <p>déchet</p>
+    </button>
   </div>
 </div>
 <button (click)="addToFilters('fields.pavtyp', 'Emballages en verre')">

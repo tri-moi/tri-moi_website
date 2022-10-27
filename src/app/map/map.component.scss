@@ -1,18 +1,127 @@
+@import '../../assets/scss/variables';
+@import '../../assets/css/flexboxgrid.min.css';
+
+
+//always load this one last
+@import '../../assets/scss/global';
+
+//#mapContainer {
+//  height: 100vh;
+//}
+
 .map-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 30px;
+
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  //right: 0;
+  //bottom: 0;
+  //margin: 30px;
+  //width: 100%;
+  height: 69vh;
+  //margin-right: auto;
+  //margin-left: auto;
   .map-frame {
-    border: 2px solid black;
+    //border: 2px solid #161616;
     height: 100%;
     #map {
       height: 100%;
+      z-index: 1;
     }
   }
 }
 
 
+#locationSearch {
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 2px #161616;
+  padding: 0 50px;
+  @include min-md {
+    padding: 0 20px;
+  }
+}
 
+#locationSearch img {
+  width: 20px;
+}
+
+#locationSearch input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+}
+
+#locationSearch input::placeholder {
+  color: #161616;
+}
+
+#locationSearch input:focus {
+  outline: none;
+}
+
+#binFilter {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.binType {
+  border-top: solid 2px #161616;
+  border-right: solid 2px #161616;
+  border-left: none;
+  border-bottom: none;
+  min-width: 75px;
+  min-height: 75px;
+  width: 100%;
+  /* text-align: center; */
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.binType:last-child {
+  border-right: none;
+}
+
+.binType img {
+  width: 25px;
+}
+
+#glassFilter:hover,
+#glassFiler:active{
+  background-color: #C4DFAA;
+}
+
+#plasticFilter:hover,
+#plasticFiler:active{
+  background-color: #F3D179;
+}
+
+#metalFilter:hover,
+#metalFiler:active{
+  background-color: #F46060;
+}
+
+#cardboardFilter:hover,
+#cardboardFiler:active{
+  background-color: #F3D179;
+}
+
+#paperFilter:hover,
+#paperFiler:active{
+  background-color: #73A9AD;
+}
+
+#trashFilter:hover,
+#trashFiler:active{
+  background-color: #52575D;
+}
