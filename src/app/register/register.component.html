@@ -27,13 +27,7 @@
       <app-error-box *ngIf="errors.password" class="error-box" [error]="errors.password"></app-error-box>
       <label class="formLabel" for="password">Password : </label>
       <input [(ngModel)]="formData.password" type="password" name="password" id="password" placeholder="Mot de passe">
-
-      <label for="birthday">Date de naissance</label>
-      <input [(ngModel)]="formData.birthday" type="date" name="birthday" id="birthday" placeholder="Date de naissance">
-      <app-error-box *ngIf="errors.profilePic" class="error-box" [error]="errors.profilePic"></app-error-box>
-
-      <label for="profilePic">Photo de profil</label>
-      <input accept="image/*" [(ngModel)]="formData.profilePic" type="file" name="profilePic" id="profilePic" placeholder="Photo de profil">
+      
       <button type="submit" class="button buttonGreen">
         <div class="buttonGreenText">S'inscrire</div>
       </button>
