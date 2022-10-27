@@ -26,12 +26,12 @@ $screen-lg:992px;
 $screen-xl:1200px;
 
 @mixin min-sm {
-  @media (min-width: #{$screen-sm}) {
+  @media (max-width: #{$screen-sm}) {
     @content;
   }
 }
 @mixin min-md {
-  @media (min-width: #{$screen-md}) {
+  @media (max-width: #{$screen-md}) {
     @content;
   }
 }
