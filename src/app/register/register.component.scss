@@ -1,4 +1,5 @@
 @import '~src/assets/scss/variables';
+@import '../../assets/scss/form';
 form {
   .error-box {
     margin: auto;
@@ -26,4 +27,14 @@ form {
   .hidden {
     display: none;
   }
+}
+
+label[for=birthday],
+label[for=profilePic] {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.button {
+  margin-bottom: 40px;
 }
