@@ -12,16 +12,16 @@ const routes: Routes = [
     component: BlankComponent
   },
   {
-    path: 'login',
+    path: 'connexion',
     component: LoginComponent
   },
   {
-    path: 'register',
+    path: 'inscription',
     component: RegisterComponent
   },
   {
-    path: 'accueil',
-    component: HomeComponent
+    path: '',
+    component: MapComponent
   },
   {
     path: 'map',
