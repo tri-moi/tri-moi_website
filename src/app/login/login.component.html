@@ -1,0 +1,19 @@
+<div class="formContainer">
+  <h3>Connexion</h3>
+
+  <img src="./assets/images/bloom-refuse-bag.png" alt="connexion image">
+
+  <form action="" (submit)="submitLogin()">
+    <app-error-box *ngIf="fromRegister" class="error-box" [error]="'Un compte existe déjà sous cette adresse e-mail, veuillez vous connecter.'"></app-error-box>
+    <app-error-box *ngIf="errorLogin" class="error-box" [error]="'Invalid email/password combination.'"></app-error-box>
+    <label class="formLabel" for="email">E-mail : </label>
+    <input [(ngModel)]="formData.email" type="text" name="email" id="email" placeholder="Email">
+    <label class="formLabel" for="password">Password : </label>
+    <input [(ngModel)]="formData.password" type="text" name="password" id="password"placeholder="Mot de passe">
+    <button type="submit" class="button buttonGreen">
+      <div class="buttonGreenText">Se connecter</div>
+    </button>
+  </form>
+
+  <p>Vous n'avez pas de compte ? <a href="">S'inscrire</a></p>
+</div>

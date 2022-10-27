@@ -1,0 +1,36 @@
+@import '~src/assets/scss/variables';
+@import '../../assets/scss/form';
+form {
+  .error-box {
+    margin: auto;
+    width: 100%;
+  }
+  .step2 {
+    display: flex;
+    flex-direction: column;
+    &--segment {
+      display: flex;
+      flex-direction: column;
+      &_side {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      @include min-md {
+        flex-direction: row;
+        &_side {
+          width: 50%;
+        }
+      }
+    }
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+label[for=birthday],
+label[for=profilePic] {
+    display: block;
+    margin-bottom: 10px;
+}

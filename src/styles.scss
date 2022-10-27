@@ -5,6 +5,78 @@
 //always load this one last
 @import 'assets/scss/global';
 
+
+//INPUT / LABEL
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: solid 2px #161616;
+  padding-bottom: 10px;
+}
+
+input::placeholder {
+  color: #161616;
+}
+
+input:focus {
+  outline: none;
+}
+
+//BUTTONS
+
+.button {
+  border: none;
+  width: 205px;
+  height: 50px;
+  transition: all .5s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    background-position: left bottom;
+  }
+}
+
+.button:hover .buttonGreenText {
+  color: $white;
+}
+
+.button:hover .buttonBlackText {
+  color: $black;
+}
+
+.buttonGreen {
+  background: linear-gradient(to right, $black 50%, $green 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+
+.buttonBlack {
+  background: linear-gradient(to right, $green 50%, $black 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+
+.buttonGreenText,
+.buttonBlackText {
+  text-align: center;
+  font-size: 16px;
+  line-height: 30px;
+  transition: all .6s ease-out;
+  display: block;
+}
+
+.buttonGreenText {
+  color: $black;
+
+}
+
+.buttonBlackText {
+  color: $white;
+}
+
 //HEADER
 
 nav {
@@ -128,6 +200,10 @@ nav ul li a:active,
 
 #contactLinkHeader {
   background-color: $green;
+  &:hover {
+    color: $white;
+    background-color: $black;
+  }
 }
 
 nav .menu-btn i {
