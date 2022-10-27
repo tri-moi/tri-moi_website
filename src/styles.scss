@@ -5,6 +5,7 @@
 //always load this one last
 @import 'assets/scss/global';
 
+
 //INPUT / LABEL
 
 input {
@@ -84,4 +85,189 @@ label {
 
 .buttonBlackText {
   color: $white;
+}
+
+//HEADER
+
+nav {
+  display: flex;
+  height: 80px;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+  border-bottom: solid 2px $black;
+  padding: 0 50px;
+  @include min-md {
+    padding: 0 20px;
+  }
+}
+
+#navLogo {
+  font-family: 'Berkshire Swash', cursive;
+  font-size: 40px;
+
+}
+
+#navContainer1,
+#navContainer2,
+#navContainer3 {
+  width: calc(100% / 3);
+}
+
+#navContainer1,
+#navContainer3 {
+  display: flex;
+  align-items: center;
+}
+
+#navContainer3 {
+  justify-content: flex-end;
+  @include min-lg {
+    display: none;
+  }
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  @include min-lg {
+    position: fixed;
+    //top: 100px;
+    //left: -100%;
+    top: -100%;
+    width: 100%;
+  }
+}
+
+nav ul li {
+  margin: 0 5px;
+  @include min-lg {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+nav ul li a,
+nav ul li a:hover,
+nav ul li a:active,
+#contactLinkHeader {
+  padding: 10px 15px;
+}
+
+nav ul li a {
+  border: solid 2px transparent;
+  @include min-lg {
+    width: 100%;
+    font-size: 30px;
+    margin-left: -100%;
+    display: block;
+  }
+}
+
+nav ul li a:hover,
+nav ul li a:active,
+#contactLinkHeader {
+  border: solid 2px $black;
+}
+
+#navMenuLinkHome:hover {
+  background-color: $warning;
+}
+#navMenuLinkAbout:hover {
+  background-color: $error;
+}
+#navMenuLinkContact:hover {
+  background-color: $blue;
+}
+
+#navMenuLinkHome {
+  @include min-lg {
+    background-color: $warning;
+  }
+}
+
+#navMenuLinkAbout {
+  @include min-lg {
+    background-color: $error;
+  }
+}
+
+#navMenuLinkContact {
+  @include min-lg {
+    background-color: $blue;
+  }
+}
+
+#navMenuLinkConnexion {
+  display: none;
+  @include min-lg {
+    display: block;
+    background-color: $green;
+  }
+}
+
+#contactLinkHeader {
+  background-color: $green;
+}
+
+nav .menu-btn i {
+  display: none;
+  @include min-lg {
+    display: block;
+    margin-left: 15px;
+    font-size: 35px;
+  }
+}
+
+nav .menu-btn i,
+input[type="submit"] {
+  cursor: pointer;
+  @include min-lg {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+#click:checked ~ .menu-btn i:before {
+  @include min-lg {
+    content: "\f00d";
+  }
+}
+
+#click:checked ~ ul {
+  @include min-lg {
+    left: 0px;
+    top: 80px;
+  }
+}
+
+#click:checked ~ ul li a {
+  @include min-lg {
+    margin-left: 0px;
+    border-bottom: solid 2px $black;
+    padding: 30px;
+  }
+}
+
+//FOOTER
+
+#footer {
+  border-top: solid 2px $black;
+  //position: fixed;
+  //bottom: 0;
+  width: 100%;
+}
+
+#footerLogo {
+  font-size: 20px;
+  padding: 20px 50px;
+  @include min-md {
+    padding: 20px 20px;
+  }
 }
