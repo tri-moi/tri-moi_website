@@ -12,13 +12,14 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlankComponent,
     MapComponent,
-    SearchComponent
+    SearchComponent,
     HeaderComponent,
     FooterComponent,
     HomeComponent
@@ -28,7 +29,8 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     NgAisModule.forRoot(),
     LeafletModule,
-    LeafletMarkerClusterModule
+    LeafletMarkerClusterModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

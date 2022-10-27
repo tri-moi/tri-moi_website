@@ -20,13 +20,17 @@ export class MapComponent implements AfterViewInit {
 
   constructor() { }
   loading = true
+  hitsPerPage = 100
+  searchQuery = ''
   filters = ''
+  hits = []
+  center = L.latLng( 49.443232, 1.099971 )
+  zoom = 10
   options = {
+    attributionControl: false,
     layers: [
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 })
     ],
-    zoom: 10,
-    center: L.latLng( 49.443232, 1.099971 )
   };
   layers = [
     L.marker([ 46.879966, -121.726909 ])
@@ -36,7 +40,7 @@ export class MapComponent implements AfterViewInit {
     addLayer: this.layers,
   }
   ngAfterViewInit(): void {
-    index.search('',{hitsPerPage: 50,}).then(({ hits }) => {
+    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage,}).then(({ hits }) => {
       console.log(hits);
       this.pushHitsToMarkers(hits)
       this.loading = false
@@ -44,9 +48,25 @@ export class MapComponent implements AfterViewInit {
   }
   pushHitsToMarkers(hits:any) {
     let markers: L.Marker<any>[]=[]
-    hits.forEach((hit:object) => {
+      hits.forEach((hit:any) => {
+      let icon = ''
+      if (hit.fields.pavtyp === 'Emballages en verre') {
+        icon = './assets/images/icons8-glass.png'
+      } else if (hit.fields.pavtyp === 'Textile') {
+        icon = './assets/images/icons8-textile.png'
+      } else if (hit.fields.pavtyp === 'Emballages recyclables') {
+        icon = './assets/images/icons8-recyclable.png'
+      } else {
+        icon = './assets/images/icons8-household.png'
+      }
       // @ts-ignore
-      markers.push(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ]))
+      markers.push(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
+        icon: L.icon({
+          iconUrl: icon,
+          iconSize: [34, 40 ],
+          iconAnchor:   [17, 42],
+        })
+      }))
     })
     this.layers = markers
   }
@@ -54,10 +74,53 @@ export class MapComponent implements AfterViewInit {
     this.filters = filter+':"'+value+'"'
     console.log(this.filters)
     this.loading = true
-    index.search('',{hitsPerPage: 50, filters: this.filters}).then(({ hits }) => {
+    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
       console.log(hits);
       this.pushHitsToMarkers(hits)
       this.loading = false
     });
+  }
+  clearFilters() {
+    this.loading = true
+    this.filters = ''
+    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
+      console.log(hits);
+      this.pushHitsToMarkers(hits)
+      this.loading = false
+    });
+  }
+  realTimeSearch() {
+    this.loading = true
+    if (this.filters === '') {
+      index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
+        // @ts-ignore
+        this.hits = hits
+        console.log(hits);
+        this.pushHitsToMarkers(hits)
+        this.loading = false
+      });
+    } else {
+      index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
+        // @ts-ignore
+        this.hits = hits
+        console.log(hits);
+        this.pushHitsToMarkers(hits)
+        this.loading = false
+      });
+    }
+  }
+  goToGeoloc() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log(position.coords)
+        this.zoom = 15
+        this.center = (new L.LatLng(position.coords.latitude, position.coords.longitude))
+      }
+    );
+  }
+  goToMarker(marker:object) {
+    this.zoom = 15
+    // @ts-ignore
+    this.center = (new L.LatLng(marker.fields.geo_point_2d[0], marker.fields.geo_point_2d[1]))
   }
 }
