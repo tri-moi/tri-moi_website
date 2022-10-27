@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { getLoggedIn } from '../global-functions/global-functions.module';
 
+interface IFormData {
+  email: string | null;
+  password: string | null,
+}
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,14 +20,14 @@ export class LoginComponent implements OnInit {
     this._router = _router;
   }
 
-  fromRegister=false
-  // @ts-ignore
-  formData = {
+  fromRegister: boolean = false
+
+  formData: IFormData = {
     email: null,
     password: null,
   }
-  // @ts-ignore
-  errorLogin:boolean
+
+  errorLogin: boolean = false;
 
   ngOnInit(): void {
     let action = null

@@ -3,11 +3,25 @@ import {ActivatedRoute, Router } from '@angular/router';
 
 import { getLoggedIn } from '../global-functions/global-functions.module';
 
+interface IFormData {
+  email: string | null;
+  password: string | null,
+  firstName: string | null,
+  lastName: string | null,
+}
+
+interface IFormErrors {
+  email: string | null;
+  password: string | null,
+  name: string | null,
+}
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
 
   private _router: Router;
@@ -16,20 +30,17 @@ export class RegisterComponent implements OnInit {
     this._router = _router;
   }
 
-  // @ts-ignore
-  formData = {
+
+  formData: IFormData = {
     email: null,
     password: null,
     firstName:null,
     lastName:null,
-    birthday:null,
-    profilePic:null,
   }
-  // @ts-ignore
-  errors = {
+
+  errors:IFormErrors = {
     email:null,
     password:null,
-    profilePic:null,
     name:null,
   }
   step2 = false
@@ -41,14 +52,10 @@ export class RegisterComponent implements OnInit {
     }
   }
   toggleStep2() {
-    // @ts-ignore
     if ( !this.formData.email || !this.checkEmailFormat(this.formData.email)) {
-      // @ts-ignore
       this.errors.email = "Veuillez entrer une adresse e-mail valide."
     } else {
-      // @ts-ignore
       if (!this.checkEmailAvailability(this.formData.email)) {
-        // @ts-ignore
         this._router.navigateByUrl('/login?action=alreadyExists&email='+this.formData.email)
         return
       } else {
@@ -64,26 +71,22 @@ export class RegisterComponent implements OnInit {
     return 1
   }
   checkPasswordFormat(string:string) {
-    //1 lettre maj, 1 lettre min, 1 chiffre minimum, entre 6 et 30 caractères
-    return string.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,30}$/)
+    //1 lettre maj, 1 lettre min, 1 chiffre minimum, entre 8 et 30 caractères
+    return string.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/)
   }
   submitRegister() {
     console.log(this.formData)
     if (this.step2) {
       console.log('submit')
-      // @ts-ignore
       if (!this.formData.password || !this.checkPasswordFormat(this.formData.password)) {
-        // @ts-ignore
-        this.errors.password = "Votre mot de passe doit contenir entre 6 et 30 caractères, au mois une lettre majuscule, une lettre minuscule, et un chiffre."
+        this.errors.password = "Votre mot de passe doit contenir entre 8 et 30 caractères, au mois une lettre majuscule, une lettre minuscule, et un chiffre."
       }
       else {
         this.errors.password=null
       }
-      if (!this.formData.firstName || !this.formData.firstName) {
-        // @ts-ignore
+      if (!this.formData.firstName || !this.formData.lastName) {
         this.errors.name = "Veuillez entrer votre nom et votre prénom."
-      }
-      else {
+      } else {
         this.errors.name=null
       }
       if(Object.values(this.errors).every(element => element === null)) {
