@@ -11,9 +11,9 @@
   };
   p,span,button,input,a,h5,h6 {
     color: black;
-    font-size: 12px;
+    font-size: 16px;
     @include min-sm {
-      font-size: 16px;
+      font-size: 12px;
     }
   }
   h1,h2,h3,h4,h5,h6 {
@@ -21,39 +21,39 @@
 
   }
   h1 {
-    font-size: 56px;
+    font-size: 60px;
     @include min-sm {
-      font-size: 60px;
+      font-size: 56px;
     }
   }
   h2 {
-    font-size: 46px;
+    font-size: 50px;
     @include min-sm {
-      font-size: 50px;
+      font-size: 46px;
     }
   }
   h3 {
-    font-size: 36px;
+    font-size: px;
     @include min-sm {
-      font-size: 40px;
+      font-size: 36px;
     }
   }
   h4 {
-    font-size: 26px;
+    font-size: 30px;
     @include min-sm {
-      font-size: 30px;
+      font-size: 26px;
     }
   }
   h5 {
-    font-size: 16px;
+    font-size: 20px;
     @include min-sm {
-      font-size: 20px;
+      font-size: 16px;
     }
   }
   h6 {
-    font-size: 12px;
+    font-size: 16px;
     @include min-sm {
-      font-size: 16px;
+      font-size: 12px;
     }
   }
 }

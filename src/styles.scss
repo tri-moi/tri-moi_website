@@ -9,13 +9,16 @@
 
 nav {
   display: flex;
-  height: 100px;
+  height: 80px;
   align-items: center;
   justify-content: space-between;
   position: relative;
   z-index: 3;
   border-bottom: solid 2px $black;
   padding: 0 50px;
+  @include min-md {
+    padding: 0 20px;
+  }
 }
 
 #navLogo {
@@ -158,7 +161,7 @@ input[type="checkbox"] {
 #click:checked ~ ul {
   @include min-lg {
     left: 0px;
-    top: 100px;
+    top: 80px;
   }
 }
 
@@ -174,12 +177,15 @@ input[type="checkbox"] {
 
 #footer {
   border-top: solid 2px $black;
-  position: fixed;
-  bottom: 0;
+  //position: fixed;
+  //bottom: 0;
   width: 100%;
 }
 
 #footerLogo {
   font-size: 20px;
   padding: 20px 50px;
+  @include min-md {
+    padding: 20px 20px;
+  }
 }
