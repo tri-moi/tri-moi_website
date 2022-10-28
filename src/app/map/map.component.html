@@ -5,7 +5,7 @@
   <div id="locationSearch">
     <img src="./assets/images/icons8-search-100.png" *ngIf="searchQuery === ''">
     <img src="./assets/images/icons8-multiplier-30.png" *ngIf="searchQuery !== ''" (click)="searchQuery = '';realTimeSearch()">
-    <input id="searchInput" type="text" placeholder="RECHERCHE" [(ngModel)]="searchQuery" (ngModelChange)="realTimeSearch()">
+    <input id="searchInput" type="text" placeholder="RECHERCHE" [(ngModel)]="searchQuery" (ngModelChange)="realTimeSearch()" #myInput>
     <img *ngIf="!geoLocDenied" src="./assets/images/icons8-location-80.png" (click)="goToGeoloc()">
     <div class="autocomplete" *ngIf="searchQuery!==''">
       <div class="autocomplete--single" *ngFor="let hit of hits" (click)="goToMarker(hit,hit['fields']['adresse']+', '+hit['fields']['commune'])">
@@ -22,17 +22,22 @@
       <div id="map" *ngIf="!geoLocDenied"
            leaflet
            [leafletOptions]="options"
-           [leafletLayers]="layers.concat(userLayer)"
+           [leafletLayers]="userLayer"
            [(leafletCenter)]="center"
-           [(leafletZoom)]="zoom" >
+           [(leafletZoom)]="zoom"
+           [leafletMarkerCluster]="[layerGroup]"
+           >
+
 
       </div>
       <div id="map" *ngIf="geoLocDenied"
            leaflet
            [leafletOptions]="options"
-           [leafletLayers]="layers"
            [(leafletCenter)]="center"
-           [(leafletZoom)]="zoom" >
+           [(leafletZoom)]="zoom"
+           [leafletMarkerCluster]="[layerGroup]"
+           >
+
 
       </div>
     </div>

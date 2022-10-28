@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import algoliasearch from 'algoliasearch/lite';
@@ -17,16 +17,16 @@ const index = searchClient.initIndex('pav');
 })
 export class MapComponent implements AfterViewInit {
   private map:any;
-
+  @ViewChild('myInput') myInput: any;
   constructor() { }
   geoLocDenied = false
   loading = true
-  hitsPerPage = 100
+  hitsPerPage = 5000
   searchQuery = ''
   filters = ''
-  hits = []
+  hits:any = []
   center = L.latLng( 49.443232, 1.099971 )
-  zoom = 10
+  zoom = 12
   options = {
     attributionControl: false,
     layers: [
@@ -36,11 +36,8 @@ export class MapComponent implements AfterViewInit {
   layers = [
     L.marker([ 0, 10 ])
   ]
+  layerGroup= L.markerClusterGroup()
   userLayer = [L.marker([ 0, 0 ])]
-
-  markerClusterData = {
-    addLayer: this.layers,
-  }
   ngAfterViewInit(): void {
     index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage,}).then(({ hits }) => {
       console.log(hits);
@@ -51,7 +48,8 @@ export class MapComponent implements AfterViewInit {
     console.log(this.userLayer)
   }
   pushHitsToMarkers(hits:any) {
-    let markers: L.Marker<any>[]=[]
+    // let markers: L.Marker<any>[]=[]
+    let markersCluster=L.markerClusterGroup()
       hits.forEach((hit:any) => {
       let icon = ''
       if (hit.fields.pavtyp === 'Emballages en verre') {
@@ -63,20 +61,22 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
-      markers.push(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
-        icon: L.icon({
-          iconUrl: icon,
-          iconSize: [34, 40 ],
-          iconAnchor:   [17, 42],
-        })
-      }).on('click', event => {
-        this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
-        this.realTimeSearch()
-        // @ts-ignore
-        document.querySelector("#searchInput").value =hit['fields']['adresse']+', '+hit['fields']['commune']
-      }))
+        markersCluster.addLayer(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
+          icon: L.icon({
+            iconUrl: icon,
+            iconSize: [34, 40 ],
+            iconAnchor:   [17, 42],
+          })
+        }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup().on('click', event => {
+          this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
+          this.realTimeSearch()
+          this.myInput.nativeElement.value=hit['fields']['adresse']+', '+hit['fields']['commune']
+        }))
     })
-    this.layers = markers
+    // this.layers = markers
+    console.log(markersCluster)
+    this.layerGroup = markersCluster
+
   }
   addToFilters(filter:any, value:any) {
     this.filters = filter+':"'+value+'"'
@@ -100,13 +100,11 @@ export class MapComponent implements AfterViewInit {
   realTimeSearch() {
     if (this.filters === '') {
       index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
-        // @ts-ignore
         this.hits = hits
         this.pushHitsToMarkers(hits)
       });
     } else {
       index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
-        // @ts-ignore
         this.hits = hits
         console.log(hits);
         this.pushHitsToMarkers(hits)
@@ -117,7 +115,7 @@ export class MapComponent implements AfterViewInit {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         let marker: L.Marker<any>[]=[]
-        this.zoom = 15
+        this.zoom = 16
         this.center = (new L.LatLng(position.coords.latitude, position.coords.longitude))
         marker.push(L.marker([position.coords.latitude, position.coords.longitude],{
           icon: L.icon({
@@ -133,14 +131,12 @@ export class MapComponent implements AfterViewInit {
       }
     );
   }
-  goToMarker(marker:object,name:string = '') {
+  goToMarker(marker:any,name:string = '') {
     this.zoom = 15
     console.log('marker',marker)
-    // @ts-ignore
     this.center = (new L.LatLng(marker.fields.geo_point_2d[0], marker.fields.geo_point_2d[1]))
     if (name !== '') {
-      // @ts-ignore
-      document.querySelector("#searchInput").value =name
+      this.myInput.nativeElement.value =name
       this.searchQuery = name
       this.realTimeSearch()
     }
