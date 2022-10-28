@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -6,14 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  menuOpen = false;
+
+  @ViewChild('menuCheckbox') menuCheckbox:any;
+
   constructor() { }
 
-  openMenu(){
-    this.menuOpen = !this.menuOpen;
+  ngOnInit(): void {
   }
 
-  ngOnInit(): void {
+  closeMenu(){
+    console.log(this.menuCheckbox)
+    this.menuCheckbox.nativeElement.checked = false;
+    console.log(this.menuCheckbox)
+
   }
 
 }
