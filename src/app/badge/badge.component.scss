@@ -1,0 +1,21 @@
+@import '../../assets/scss/variables';
+@import '../../assets/css/flexboxgrid.min.css';
+
+
+//always load this one last
+@import '../../assets/scss/global';
+
+#badgeContainer {
+  margin: 50px 0;
+  padding: 0 20px;
+}
+
+#badgeTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  & img {
+    width: 50px;
+    margin-right: 10px;
+  }
+}

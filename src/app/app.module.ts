@@ -13,6 +13,9 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
+import { HistoriqueComponent } from './historique/historique.component';
+import { BadgeComponent } from './badge/badge.component';
+import { ProduitComponent } from './produit/produit.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { ProfilComponent } from './profil/profil.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ProfilComponent
+    ProfilComponent,
+    HistoriqueComponent,
+    BadgeComponent,
+    ProduitComponent
   ],
   imports: [
     BrowserModule,
