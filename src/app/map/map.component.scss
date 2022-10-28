@@ -46,6 +46,9 @@
   @include min-md {
     padding: 0 20px;
   }
+  >img {
+    cursor: pointer;
+  }
   .autocomplete {
     position: absolute;
     z-index: 2;

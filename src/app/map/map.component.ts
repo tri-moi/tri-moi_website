@@ -19,6 +19,7 @@ export class MapComponent implements AfterViewInit {
   private map:any;
 
   constructor() { }
+  geoLocDenied = false
   loading = true
   hitsPerPage = 100
   searchQuery = ''
@@ -29,12 +30,13 @@ export class MapComponent implements AfterViewInit {
   options = {
     attributionControl: false,
     layers: [
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 })
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }),
     ],
   };
   layers = [
-    L.marker([ 46.879966, -121.726909 ])
+    L.marker([ 0, 10 ])
   ]
+  userLayer = [L.marker([ 0, 0 ])]
 
   markerClusterData = {
     addLayer: this.layers,
@@ -45,6 +47,8 @@ export class MapComponent implements AfterViewInit {
       this.pushHitsToMarkers(hits)
       this.loading = false
     });
+    this.goToGeoloc()
+    console.log(this.userLayer)
   }
   pushHitsToMarkers(hits:any) {
     let markers: L.Marker<any>[]=[]
@@ -59,13 +63,17 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
-      // @ts-ignore
       markers.push(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
         icon: L.icon({
           iconUrl: icon,
           iconSize: [34, 40 ],
           iconAnchor:   [17, 42],
         })
+      }).on('click', event => {
+        this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
+        this.realTimeSearch()
+        // @ts-ignore
+        document.querySelector("#searchInput").value =hit['fields']['adresse']+', '+hit['fields']['commune']
       }))
     })
     this.layers = markers
@@ -90,14 +98,11 @@ export class MapComponent implements AfterViewInit {
     });
   }
   realTimeSearch() {
-    this.loading = true
     if (this.filters === '') {
       index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
         // @ts-ignore
         this.hits = hits
-        console.log(hits);
         this.pushHitsToMarkers(hits)
-        this.loading = false
       });
     } else {
       index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
@@ -105,22 +110,39 @@ export class MapComponent implements AfterViewInit {
         this.hits = hits
         console.log(hits);
         this.pushHitsToMarkers(hits)
-        this.loading = false
       });
     }
   }
   goToGeoloc() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log(position.coords)
+        let marker: L.Marker<any>[]=[]
         this.zoom = 15
         this.center = (new L.LatLng(position.coords.latitude, position.coords.longitude))
+        marker.push(L.marker([position.coords.latitude, position.coords.longitude],{
+          icon: L.icon({
+            iconUrl: './assets/images/icons8-standing-man-100.png',
+            iconSize: [42, 50 ],
+            iconAnchor:   [21, 50],
+          })
+        }))
+        this.userLayer = marker
+      }, (error) => {
+        alert(error.message)
+        this.geoLocDenied = true
       }
     );
   }
-  goToMarker(marker:object) {
+  goToMarker(marker:object,name:string = '') {
     this.zoom = 15
+    console.log('marker',marker)
     // @ts-ignore
     this.center = (new L.LatLng(marker.fields.geo_point_2d[0], marker.fields.geo_point_2d[1]))
+    if (name !== '') {
+      // @ts-ignore
+      document.querySelector("#searchInput").value =name
+      this.searchQuery = name
+      this.realTimeSearch()
+    }
   }
 }

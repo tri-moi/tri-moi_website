@@ -3,11 +3,12 @@
 </div>
 <div id="mapContainer">
   <div id="locationSearch">
-    <img src="./assets/images/icons8-search-100.png">
-    <input type="text" placeholder="RECHERCHE" [(ngModel)]="searchQuery" (ngModelChange)="realTimeSearch()">
-    <img src="./assets/images/icons8-location-80.png" (click)="goToGeoloc()">
+    <img src="./assets/images/icons8-search-100.png" *ngIf="searchQuery === ''">
+    <img src="./assets/images/icons8-multiplier-30.png" *ngIf="searchQuery !== ''" (click)="searchQuery = '';realTimeSearch()">
+    <input id="searchInput" type="text" placeholder="RECHERCHE" [(ngModel)]="searchQuery" (ngModelChange)="realTimeSearch()">
+    <img *ngIf="!geoLocDenied" src="./assets/images/icons8-location-80.png" (click)="goToGeoloc()">
     <div class="autocomplete" *ngIf="searchQuery!==''">
-      <div class="autocomplete--single" *ngFor="let hit of hits" (click)="goToMarker(hit)">
+      <div class="autocomplete--single" *ngFor="let hit of hits" (click)="goToMarker(hit,hit['fields']['adresse']+', '+hit['fields']['commune'])">
         <img *ngIf="hit['fields']['pavtyp'] === 'Emballages en verre'" class="autocomplete--single_image" src="./assets/images/icons8-glass-bottle-64.png">
         <img *ngIf="hit['fields']['pavtyp'] === 'Textile'" class="autocomplete--single_image" src="./assets/images/icons8-textile-64.png">
         <img *ngIf="hit['fields']['pavtyp'] === 'Ordures ménagères'" class="autocomplete--single_image" src="./assets/images/icons8-soda-64.png">
@@ -18,7 +19,15 @@
   </div>
   <div class="map-container">
     <div class="map-frame">
-      <div id="map"
+      <div id="map" *ngIf="!geoLocDenied"
+           leaflet
+           [leafletOptions]="options"
+           [leafletLayers]="layers.concat(userLayer)"
+           [(leafletCenter)]="center"
+           [(leafletZoom)]="zoom" >
+
+      </div>
+      <div id="map" *ngIf="geoLocDenied"
            leaflet
            [leafletOptions]="options"
            [leafletLayers]="layers"
