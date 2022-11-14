@@ -64,6 +64,7 @@ export class MapComponent implements AfterViewInit {
       let hits = results.results[0].hits.concat(results.results[1].hits).concat(results.results[2].hits)
       this.loading = false
       this.pushHitsToMarkers(hits)
+      this.hits=hits.slice(0,20)
     })
   }
   pushHitsToMarkers(hits:any) {
