@@ -13,10 +13,18 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import {LoginComponent} from './login/login.component';
+import {ErrorBoxComponent} from './error-box/error-box.component';
+import {RegisterComponent} from './register/register.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    BlankComponent,
+    ErrorBoxComponent,
+    RegisterComponent,
     BlankComponent,
     MapComponent,
     SearchComponent,
@@ -30,9 +38,12 @@ import { FormsModule } from '@angular/forms';
     NgAisModule.forRoot(),
     LeafletModule,
     LeafletMarkerClusterModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+};
+
