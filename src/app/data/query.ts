@@ -127,9 +127,9 @@ const link: IQuery = {
     DELETE_HISTORY: "history",
   },
   AUTH: {
-    CHECK_EMAIL: "auth/check-email",
-    LOGIN: "auth/login",
-    REGISTER: "auth/register",
+    CHECK_EMAIL: "check-email",
+    LOGIN: "login",
+    REGISTER: "register",
   }
 }
 
