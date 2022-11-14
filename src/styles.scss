@@ -1,6 +1,7 @@
 @import 'assets/scss/variables';
 @import 'assets/css/flexboxgrid.min.css';
-
+@import "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "../node_modules/leaflet.markercluster/dist/MarkerCluster.css";
 
 //always load this one last
 @import 'assets/scss/global';

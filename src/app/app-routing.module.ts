@@ -4,6 +4,7 @@ import { BlankComponent } from './blank/blank.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MapComponent } from './map/map.component';
+import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
   }
 ];
 
