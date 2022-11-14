@@ -5,11 +5,11 @@ import algoliasearch from 'algoliasearch/lite';
 import * as L from 'leaflet';
 import { environment } from '../../environments/environment'
 
-const searchClient = algoliasearch(
+let searchClient:any = algoliasearch(
   environment.algolia_id,
   environment.algolia_key
 );
-const index = searchClient.initIndex('pav');
+let index = searchClient.initIndex('pav');
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -21,7 +21,7 @@ export class MapComponent implements AfterViewInit {
   constructor() { }
   geoLocDenied = false
   loading = true
-  hitsPerPage = 5000
+  hitsPerPage = 1000
   searchQuery = ''
   filters = ''
   hits:any = []
@@ -39,13 +39,32 @@ export class MapComponent implements AfterViewInit {
   layerGroup= L.markerClusterGroup()
   userLayer = [L.marker([ 0, 0 ])]
   ngAfterViewInit(): void {
-    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage,}).then(({ hits }) => {
-      console.log(hits);
-      this.pushHitsToMarkers(hits)
-      this.loading = false
-    });
+    this.searchMultiple([
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage}
+      },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 1}
+      },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 2}
+      }
+    ])
     this.goToGeoloc()
     console.log(this.userLayer)
+  }
+  searchMultiple(queries:any) {
+    searchClient.multipleQueries(queries).then((results:any) => {
+      let hits = results.results[0].hits.concat(results.results[1].hits).concat(results.results[2].hits)
+      this.loading = false
+      this.pushHitsToMarkers(hits)
+    })
   }
   pushHitsToMarkers(hits:any) {
     // let markers: L.Marker<any>[]=[]
@@ -67,7 +86,8 @@ export class MapComponent implements AfterViewInit {
             iconSize: [34, 40 ],
             iconAnchor:   [17, 42],
           })
-        }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup().on('click', event => {
+        }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup()
+          .on('click', event => {
           this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
           this.realTimeSearch()
           this.myInput.nativeElement.value=hit['fields']['adresse']+', '+hit['fields']['commune']
@@ -82,33 +102,74 @@ export class MapComponent implements AfterViewInit {
     this.filters = filter+':"'+value+'"'
     console.log(this.filters)
     this.loading = true
-    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
-      console.log(hits);
-      this.pushHitsToMarkers(hits)
-      this.loading = false
-    });
+    this.searchMultiple([{
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage,filters: this.filters}
+      },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 1,filters: this.filters}
+      },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 2,filters: this.filters}
+      }])
   }
   clearFilters() {
     this.loading = true
     this.filters = ''
-    index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
-      console.log(hits);
-      this.pushHitsToMarkers(hits)
-      this.loading = false
-    });
+    this.searchMultiple([{
+      indexName:'pav',
+      query: this.searchQuery,
+      params: {hitsPerPage: this.hitsPerPage}
+    },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 1}
+      },
+      {
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage, page: 2}
+      }])
   }
   realTimeSearch() {
     if (this.filters === '') {
-      index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage}).then(({ hits }) => {
-        this.hits = hits
-        this.pushHitsToMarkers(hits)
-      });
+      this.searchMultiple([{
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage}
+      },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 1}
+        },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 2}
+        }])
     } else {
-      index.search(this.searchQuery,{hitsPerPage: this.hitsPerPage, filters: this.filters}).then(({ hits }) => {
-        this.hits = hits
-        console.log(hits);
-        this.pushHitsToMarkers(hits)
-      });
+      this.searchMultiple([{
+        indexName:'pav',
+        query: this.searchQuery,
+        params: {hitsPerPage: this.hitsPerPage,filters: this.filters}
+      },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 1,filters: this.filters}
+        },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 2,filters: this.filters}
+        }])
     }
   }
   goToGeoloc() {
