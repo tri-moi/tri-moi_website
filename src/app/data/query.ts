@@ -35,7 +35,7 @@ type IQuery = {
   }
 }
 
-const setQuery = (query: any, id?: number | { user?: number, type?: number, trash?: number }): string => {
+export const setQuery = (query: any, id?: number | { user?: number, type?: number, trash?: number }): string => {
   switch (query) {
     case QUERY.AUTH.CHECK_EMAIL:
       return `${DEFAULT_QUERY + link.AUTH.CHECK_EMAIL}`;
@@ -133,7 +133,7 @@ const link: IQuery = {
   }
 }
 
-const QUERY: IQuery = {
+export const QUERY: IQuery = {
   GET: {
     ALL_USERS: "all_users",
     ONE_USER: "one_user",
@@ -168,4 +168,4 @@ const QUERY: IQuery = {
   }
 }
 
-export default {QUERY, setQuery}
+export default {setQuery}
