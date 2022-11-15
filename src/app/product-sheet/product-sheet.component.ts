@@ -1,13 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { getLoggedIn } from '../global-functions/global-functions.module';
 @Component({
   selector: 'app-product-sheet',
   templateUrl: './product-sheet.component.html',
   styleUrls: ['./product-sheet.component.scss']
 })
 export class ProductSheetComponent implements OnInit {
-  constructor(private route: ActivatedRoute,private http: HttpClient,_router: Router) { }
+  private _router: Router;
+  constructor(private route: ActivatedRoute, private http: HttpClient,_router: Router) { this._router = _router; }
+
   barcode:any
   loading:boolean=true
   product:any
@@ -17,6 +20,10 @@ export class ProductSheetComponent implements OnInit {
     message: ''
   }
   ngOnInit(): void {
+    if (getLoggedIn() === false) {
+      this._router.navigateByUrl('/connexion')
+      return
+    }
     setInterval(() => {
       if (this.loading===true) {
         // @ts-ignore
@@ -64,7 +71,7 @@ export class ProductSheetComponent implements OnInit {
       this.trashType= 'benne à ordures ménagères'
     } else if (this.product.type==='Emballages recyclables') {
       this.trashType= 'benne à ordures recyclables'
-    } else if (this.product.type==='Ordures ménagères') {
+    } else if (this.product.type==='Textile') {
       this.trashType= 'benne à Textiles'
     }
   }

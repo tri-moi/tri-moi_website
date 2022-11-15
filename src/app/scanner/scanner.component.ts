@@ -104,5 +104,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     console.log(data.get('name'))
     let link = setQuery(QUERY.POST.CREATE_HISTORY)
     let sentProduct = await this.http.post(link,data).toPromise()
+    this._router.navigateByUrl('/product/'+this.barcodeValue)
+    return
   }
 }
