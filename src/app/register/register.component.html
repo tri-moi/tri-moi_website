@@ -1,37 +1,54 @@
 <div class="formContainer">
-  <h3>Inscription</h3>
+  <h3 *ngIf="!step">Rentrer votre Email</h3>
+  <h3 *ngIf="stepLogin">Rentrer votre mot de passe</h3>
+  <h3 *ngIf="stepRegister">Inscrivez-vous!</h3>
 
-  <form action="" (submit)="submitRegister()">
+  <form action="" (submit)="submit()">
     <app-error-box *ngIf="errors.email" class="error-box" [error]="errors.email"></app-error-box>
-    <label class="formLabel"  for="email">E-mail : </label>
-    <input [(ngModel)]="formData.email" [readonly]="step2" type="text" name="email" id="email" placeholder="Email">
-    <button type="button" [class.hidden]="step2" (click)="toggleStep2()" class="button buttonBlack">
+    <label class="formLabel" for="email">E-mail : </label>
+    <input [(ngModel)]="formData.email" [readonly]="step" type="text" name="email" id="email" placeholder="Email">
+    <button type="button" *ngIf="!step" (click)="toggleStep()" class="button buttonBlack">
       <div class="buttonBlackText">Suivant</div>
     </button>
-    <div class="step2" [class.hidden]="!step2">
-      <button type="button" (click)="toggleStep2()" class="button buttonBlack">
-        <div class="buttonBlackText">Retour</div>
-      </button>
-      <app-error-box *ngIf="errors.name" class="error-box" [error]="errors.name"></app-error-box>
-      <div class="step2--segment">
-        <div class="step2--segment_side">
-          <label class="formLabel" for="firstName">Prénom : </label>
-          <input [(ngModel)]="formData.firstName" type="text" name="firstName" id="firstName" placeholder="Prénom">
-        </div>
-        <div class="step2--segment_side">
-          <label class="formLabel" for="lastName">Nom : </label>
-          <input [(ngModel)]="formData.lastName" type="text" name="lastName" id="lastName" placeholder="Nom">
-        </div>
-      </div>
 
+
+    <!-- TODO: LOGIN  -->
+
+    <div *ngIf="stepLogin">
+      <label class="formLabel" for="passwordLogin">Mot de passe : </label>
       <app-error-box *ngIf="errors.password" class="error-box" [error]="errors.password"></app-error-box>
-      <label class="formLabel" for="password">Password : </label>
-      <input [(ngModel)]="formData.password" type="password" name="password" id="password" placeholder="Mot de passe">
-      
-      <button type="submit" class="button buttonGreen">
-        <div class="buttonGreenText">S'inscrire</div>
-      </button>
+      <input [(ngModel)]="formData.passwordLogin" class="input" type="text" name="passwordLogin" id="passwordLogin"
+             placeholder="Mot de passe">
+      <div class="container-button" style="display: flex">
+        <button type="button" *ngIf="step" (click)="toggleStep()" class="button buttonBlack">
+          <div class="buttonBlackText">Retour</div>
+        </button>
+        <button type="button" (click)="submit()" class="button buttonGreen">
+          <div class="buttonGreenText">Connexion</div>
+        </button>
+      </div>
     </div>
 
+    <!--  TODO: REGISTER  -->
+
+    <div *ngIf="stepRegister">
+      <app-error-box *ngIf="errors.passwordDouble" class="error-box" [error]="errors.passwordDouble"></app-error-box>
+      <input [(ngModel)]="formData.passwordRegister" class="input" type="password" name="passwordRegister"
+             id="passwordRegister" placeholder="Mot de passe">
+      <input [(ngModel)]="formData.passwordRegisterConfirm" class="input" type="password" name="passwordRegister"
+             id="passwordRegisterConfirm" placeholder="Confirmer votre mot de passe">
+      <input [(ngModel)]="formData.firstName" class="input" type="text" name="firstName"
+             id="firstName" placeholder="Prénom">
+      <input [(ngModel)]="formData.lastName" class="input" type="text" name="lastName"
+             id="lastName" placeholder="Nom">
+      <div class="container-button" style="display: flex">
+        <button type="button" *ngIf="step" (click)="toggleStep()" class="button buttonBlack">
+          <div class="buttonBlackText">Retour</div>
+        </button>
+        <button type="button" (click)="submit()" class="button buttonGreen">
+          <div class="buttonGreenText">Inscription</div>
+        </button>
+      </div>
+    </div>
   </form>
 </div>
