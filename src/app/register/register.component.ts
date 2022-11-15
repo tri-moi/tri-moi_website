@@ -19,6 +19,7 @@ interface IFormErrors {
   password: string | null,
   name: string | null,
   passwordDouble: string | null,
+  general: string | null,
 }
 
 @Component({
@@ -35,7 +36,7 @@ export class RegisterComponent implements OnInit {
     this._router = _router;
   }
 
-
+  loading:boolean=false
   formData: IFormData = {
     email: null,
     passwordLogin: null,
@@ -50,6 +51,7 @@ export class RegisterComponent implements OnInit {
     password: null,
     name: null,
     passwordDouble: null,
+    general: null,
   }
 
   step = false
@@ -57,6 +59,23 @@ export class RegisterComponent implements OnInit {
   stepRegister = false
 
   ngOnInit(): void {
+    setInterval(() => {
+      if (this.loading===true) {
+        // @ts-ignore
+        if (document.getElementById('loading-text').textContent==='Chargement...') {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement.'
+          // @ts-ignore
+        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement..'
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement...'
+        }
+      }
+    },400)
     if (getLoggedIn()) {
       localStorage.removeItem('user')
       this._router.navigateByUrl("/")
@@ -64,6 +83,7 @@ export class RegisterComponent implements OnInit {
   }
 
   checkMail = (email: string) => {
+    this.loading=true
     if (this.checkEmailFormat(email)) {
       let link = setQuery(QUERY.AUTH.CHECK_EMAIL)
       const formData = new FormData();
@@ -82,6 +102,7 @@ export class RegisterComponent implements OnInit {
           console.log("this.stepRegister", this.stepRegister, "this.stepLogin", this.stepLogin)
         }
         console.log(data)
+        this.loading=false
       })
       this.step = true
     } else {
@@ -91,6 +112,13 @@ export class RegisterComponent implements OnInit {
   }
 
   toggleStep() {
+    this.errors = {
+      email: null,
+      password: null,
+      name: null,
+      passwordDouble: null,
+      general: null,
+    }
     if (this.formData.email) {
       if (this.step) {
         this.stepLogin = false
@@ -107,27 +135,68 @@ export class RegisterComponent implements OnInit {
   error = false
 
   submit() {
+    this.errors = {
+      email: null,
+      password: null,
+      name: null,
+      passwordDouble: null,
+      general: null,
+    }
+    const formData = new FormData();
     if (this.stepLogin) {
-      const formData = new FormData();
       if (this.formData.email && this.formData.passwordLogin) {
+        this.loading=true
         formData.append('email', this.formData.email);
         formData.append('password', this.formData.passwordLogin);
         let link = setQuery(QUERY.AUTH.LOGIN)
         this._http.post(link, formData).subscribe((data: any) => {
           console.log("connexion", data)
+          this.loading=false
           if (data.success === true) {
             data.user = {...data.user, isLoggedIn: true}
             localStorage.setItem('user', JSON.stringify(data.user));
             this._router.navigateByUrl("/");
+            return
           } else {
-            this.errors.password = "Mot de passe incorrect"
+            this.errors.password = "Mot de passe incorrect."
           }
+
         })
       } else {
-        //TODO: error message to display on the form (email or password missing)
+        this.errors.password = "Veuillez entrer un mot de passe."
       }
     } else if (this.stepRegister) {
       // TODO : mettre en place le formulaire d'inscription
+      if (this.formData.email && this.formData.passwordRegister && this.formData.passwordRegisterConfirm && this.formData.firstName && this.formData.lastName) {
+        this.loading=true
+        formData.append('email', this.formData.email);
+        formData.append('password', this.formData.passwordRegister);
+        formData.append('password_confirm', this.formData.passwordRegisterConfirm);
+        formData.append('first_name', this.formData.firstName);
+        formData.append('last_name', this.formData.lastName);
+        let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
+        if (this.formData.passwordRegisterConfirm !== this.formData.passwordRegister) {
+          this.errors.passwordDouble = 'Veuillez entrer 2 mots de passe identiques.'
+        } else if (!this.formData.passwordRegister.match(regexPassword)) {
+          this.errors.password = 'Votre mot de passe doit contenir entre 8 et 20 caractères, y compris au moins un cheffre, une lettre majuscule et une lettre minuscule.'
+        }else {
+          let link = setQuery(QUERY.AUTH.REGISTER)
+          this._http.post(link, formData).subscribe((data: any) => {
+            console.log("inscription", data)
+            if (data.success === true) {
+              data.user = {...data.user, isLoggedIn: true}
+              localStorage.setItem('user', JSON.stringify(data.user));
+              this._router.navigateByUrl("/");
+            } else {
+              this.errors = data.error
+            }
+            this.loading=false
+          })
+        }
+      } else {
+        //TODO: error message to display on the form (email or password missing)
+        this.errors.general = 'Veuillez remplir tous les champs.'
+      }
     }
   }
 
@@ -135,9 +204,6 @@ export class RegisterComponent implements OnInit {
     return string.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
   }
 
-  checkEmailAvailability(string: string) {
-    return 1
-  }
 
   checkPasswordFormat(string: string) {
     //1 lettre maj, 1 lettre min, 1 chiffre minimum, entre 8 et 30 caractères

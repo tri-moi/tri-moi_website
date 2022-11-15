@@ -1,3 +1,6 @@
+<div *ngIf="loading" class="loading">
+  <h2 id="loading-text" class="loading_text"></h2>
+</div>
 <div class="formContainer">
   <h3 *ngIf="!step">Rentrer votre Email</h3>
   <h3 *ngIf="stepLogin">Rentrer votre mot de passe</h3>
@@ -33,6 +36,8 @@
 
     <div *ngIf="stepRegister">
       <app-error-box *ngIf="errors.passwordDouble" class="error-box" [error]="errors.passwordDouble"></app-error-box>
+      <app-error-box *ngIf="errors.password" class="error-box" [error]="errors.password"></app-error-box>
+      <app-error-box *ngIf="errors.general" class="error-box" [error]="errors.general"></app-error-box>
       <input [(ngModel)]="formData.passwordRegister" class="input" type="password" name="passwordRegister"
              id="passwordRegister" placeholder="Mot de passe">
       <input [(ngModel)]="formData.passwordRegisterConfirm" class="input" type="password" name="passwordRegister"
