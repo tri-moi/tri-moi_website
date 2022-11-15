@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { getLoggedIn } from '../global-functions/global-functions.module';
+import {QUERY, setQuery} from "../data/query";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 interface IFormData {
   email: string | null;
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   private _router: Router;
 
-  constructor(_router: Router,private route: ActivatedRoute) {
+  constructor(_router: Router,private route: ActivatedRoute,private http: HttpClient) {
     this._router = _router;
   }
 
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
         if (action === 'logout') {
           //Checks if user is actually logged in, if not, redirects to the login page
           if (!getLoggedIn()) {
-            this._router.navigateByUrl('/login')
+            this._router.navigateByUrl('/connexion')
             return
           }
           localStorage.removeItem('user')
@@ -53,6 +55,10 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
+    const link = setQuery(QUERY.AUTH.LOGIN)
+    this.http.post(link,{email : 'lol'}).subscribe((response) => {
+      console.log(response)
+    })
     if (this.formData.email && this.formData.password) {
       this.errorLogin = false
       let user= {

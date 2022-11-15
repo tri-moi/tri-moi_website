@@ -19,3 +19,10 @@ export function getLoggedIn(){
     return false
   }
 }
+export function getCurrentUser(){
+  if (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('user')) {
+    return localStorage.getItem('user')
+  } else {
+    return 'error'
+  }
+}
