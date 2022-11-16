@@ -20,3 +20,10 @@ export function getLoggedIn(){
     return false
   }
 }
+export function getCurrentUser(){
+  if (getLoggedIn()) {
+    return localStorage.getItem('user')
+  } else {
+    return 'error'
+  }
+}

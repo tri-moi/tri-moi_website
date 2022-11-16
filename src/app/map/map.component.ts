@@ -4,6 +4,7 @@ import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluste
 import algoliasearch from 'algoliasearch/lite';
 import * as L from 'leaflet';
 import { environment } from '../../environments/environment'
+import { ActivatedRoute } from '@angular/router';
 
 let searchClient:any = algoliasearch(
   environment.algolia_id,
@@ -18,19 +19,20 @@ let index = searchClient.initIndex('pav');
 export class MapComponent implements AfterViewInit {
   private map:any;
   @ViewChild('myInput') myInput: any;
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
   geoLocDenied = false
   loading = true
   hitsPerPage = 1000
   searchQuery = ''
   filters = ''
+  urlFilter:string
   hits:any = []
   center = L.latLng( 49.443232, 1.099971 )
   zoom = 12
   options = {
     attributionControl: false,
     layers: [
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18 }),
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, minZoom : 8 }),
     ],
   };
   layers = [
@@ -39,23 +41,49 @@ export class MapComponent implements AfterViewInit {
   layerGroup= L.markerClusterGroup()
   userLayer = [L.marker([ 0, 0 ])]
   ngAfterViewInit(): void {
-    this.searchMultiple([
-      {
-        indexName:'pav',
-        query: this.searchQuery,
-        params: {hitsPerPage: this.hitsPerPage}
-      },
-      {
-        indexName:'pav',
-        query: this.searchQuery,
-        params: {hitsPerPage: this.hitsPerPage, page: 1}
-      },
-      {
-        indexName:'pav',
-        query: this.searchQuery,
-        params: {hitsPerPage: this.hitsPerPage, page: 2}
+    setInterval(() => {
+      if (this.loading===true) {
+        // @ts-ignore
+        if (document.getElementById('loading-text').textContent==='Chargement...') {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement.'
+          // @ts-ignore
+        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement..'
+          // @ts-ignore
+        } else {
+          // @ts-ignore
+          document.getElementById('loading-text').textContent = 'Chargement...'
+        }
       }
-    ])
+    },400)
+    this.route.queryParamMap
+      .subscribe((params:any) => {
+        console.log(params.params.filter)
+        this.urlFilter = params.params.filter
+      })
+    if (this.urlFilter && (this.urlFilter === 'Textile' || this.urlFilter === 'Emballages recyclables' || this.urlFilter === 'Emballages en verre' || this.urlFilter === 'Ordures ménagères')) {
+      this.addToFilters('fields.pavtyp', this.urlFilter)
+    } else {
+      this.searchMultiple([
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage}
+        },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 1}
+        },
+        {
+          indexName:'pav',
+          query: this.searchQuery,
+          params: {hitsPerPage: this.hitsPerPage, page: 2}
+        }
+      ])
+    }
     this.goToGeoloc()
     console.log(this.userLayer)
   }
@@ -203,4 +231,5 @@ export class MapComponent implements AfterViewInit {
       this.realTimeSearch()
     }
   }
+
 }

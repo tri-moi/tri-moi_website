@@ -4,6 +4,9 @@ import { BlankComponent } from './blank/blank.component';
 import { RegisterComponent } from './register/register.component';
 import { MapComponent } from './map/map.component';
 import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
+import { ScannerComponent } from './scanner/scanner.component';
+import { ProductSheetComponent } from './product-sheet/product-sheet.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,14 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchComponent
+  },
+  {
+    path: 'scanner',
+    component: ScannerComponent
+  },
+  {
+    path: 'product/:barcode',
+    component: ProductSheetComponent
   }
 ];
 

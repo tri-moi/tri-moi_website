@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { NgAisModule } from 'angular-instantsearch';
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 
 import { AppComponent } from './app.component';
 import { BlankComponent } from './blank/blank.component';
@@ -17,6 +18,8 @@ import {LoginComponent} from './login/login.component';
 import {ErrorBoxComponent} from './error-box/error-box.component';
 import {RegisterComponent} from './register/register.component';
 import {HttpClientModule} from "@angular/common/http";
+import { ScannerComponent } from './scanner/scanner.component';
+import { ProductSheetComponent } from './product-sheet/product-sheet.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import {HttpClientModule} from "@angular/common/http";
     SearchComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    ScannerComponent,
+    ProductSheetComponent
   ],
   imports: [
     BrowserModule,
@@ -39,11 +44,11 @@ import {HttpClientModule} from "@angular/common/http";
     LeafletModule,
     LeafletMarkerClusterModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BarcodeScannerLivestreamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 };
-

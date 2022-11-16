@@ -1,0 +1,38 @@
+<div class="loading" *ngIf="scannerLoading">
+  <h2 id="loading-text" class="loading_text">Chargement...</h2>
+</div>
+<div class="container">
+  <div class="scanner-feed">
+    <barcode-scanner-livestream
+      [type]="['ean','upc']"
+      (valueChanges)="scan($event)"
+    ></barcode-scanner-livestream>
+  </div>
+  <div class="scanner-dashboard">
+    <button (click)="scan($event)">
+      test
+    </button>
+
+    <div *ngIf="currentProduct.status===0">
+      <p>erreur : {{currentProduct.status_verbose}}</p>
+    </div>
+    <div *ngIf="currentProduct.status===1">
+      <p>{{currentProduct.product.product_name}}</p>
+      <img *ngIf="currentProduct.product.image_url" [src]="currentProduct.product.image_url" alt="">
+      <div>
+        <app-error-box *ngIf="error.status" class="error-box" [error]="error.message"></app-error-box>
+        <p>Sélectionnez la matière de l'emballage de votre produit : </p>
+        <select name="id_type_id" id="type-select" [(ngModel)]="selectedType">
+          <option value="" selected>Veuillez choisir une option</option>
+          <option [value]="type.id" *ngFor="let type of this.types">{{type.name}}</option>
+        </select>
+      </div>
+      <button (click)="sendData()">
+        Envoyer
+      </button>
+    </div>
+  </div>
+
+</div>
+
+
