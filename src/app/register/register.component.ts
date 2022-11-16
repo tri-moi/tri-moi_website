@@ -163,7 +163,6 @@ export class RegisterComponent implements OnInit {
     } else if (this.stepRegister) {
       // TODO : mettre en place le formulaire d'inscription
       if (this.formData.email && this.formData.passwordRegister && this.formData.passwordRegisterConfirm && this.formData.firstName && this.formData.lastName) {
-        this.loading = true
         formData.append('email', this.formData.email);
         formData.append('password', this.formData.passwordRegister);
         formData.append('password_confirm', this.formData.passwordRegisterConfirm);
@@ -175,6 +174,7 @@ export class RegisterComponent implements OnInit {
         } else if (!this.checkPasswordFormat(this.formData.passwordRegister)) {
           this.errors.password = 'Votre mot de passe doit contenir entre 8 et 30 caractères, y compris au moins un cheffre, une lettre majuscule et une lettre minuscule.'
         } else {
+          this.loading = true
           let link = setQuery(QUERY.AUTH.REGISTER)
           this._http.post(link, formData).subscribe((data: any) => {
             if (data.success === true) {
