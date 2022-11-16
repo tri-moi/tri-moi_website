@@ -168,7 +168,6 @@ export class RegisterComponent implements OnInit {
         formData.append('password_confirm', this.formData.passwordRegisterConfirm);
         formData.append('first_name', this.formData.firstName);
         formData.append('last_name', this.formData.lastName);
-        let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
         if (this.formData.passwordRegisterConfirm !== this.formData.passwordRegister) {
           this.errors.passwordDouble = 'Veuillez entrer 2 mots de passe identiques.'
         } else if (!this.checkPasswordFormat(this.formData.passwordRegister)) {
