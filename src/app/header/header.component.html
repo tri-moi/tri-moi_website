@@ -10,13 +10,22 @@
       <i class="fas fa-bars"></i>
     </label>
     <ul class="menu">
-      <li><a class="navMenuLinks" id="navMenuLinkConnexion" routerLink="/connexion" routerLinkActive="active" ariaCurrentWhenActive="page">Connexion</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkHome" routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page">Accueil</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkAbout" routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page">A propos</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkContact" routerLink="" routerLinkActive="active" ariaCurrentWhenActive="page">Contact</a></li>
+      <li><a *ngIf="login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
+             ariaCurrentWhenActive="page">Déconnexion</a></li>
+      <li><a *ngIf="!login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
+             ariaCurrentWhenActive="page">Connexion</a></li>
+      <li><a class="navMenuLinks" id="navMenuLinkHome" routerLink="" routerLinkActive="active"
+             ariaCurrentWhenActive="page">Accueil</a></li>
+      <li><a class="navMenuLinks" id="navMenuLinkAbout" routerLink="" routerLinkActive="active"
+             ariaCurrentWhenActive="page">A propos</a></li>
+      <li><a class="navMenuLinks" id="navMenuLinkContact" routerLink="" routerLinkActive="active"
+             ariaCurrentWhenActive="page">Contact</a></li>
     </ul>
   </div>
   <div id="navContainer3">
-    <a id="contactLinkHeader" routerLink="/connexion" routerLinkActive="active" ariaCurrentWhenActive="page">Connexion</a>
+    <a *ngIf="!login" class="contactLinkHeader" routerLink="/auth" routerLinkActive="active"
+       ariaCurrentWhenActive="page">Connexion</a>
+    <a *ngIf="login" class="contactLinkHeader" routerLink="/auth" routerLinkActive="active"
+       ariaCurrentWhenActive="page">Déconnexion</a>
   </div>
 </nav>
