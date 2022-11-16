@@ -20,6 +20,10 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   currentProduct:any = {
     status:null
   };
+  error:any = {
+    status:false,
+    message: 'Veuillez choisir un type de produit.'
+  }
   types:any=[];
   selectedType:any
   scannerLoading:boolean=true
@@ -89,22 +93,27 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     }
   }
   async sendData() {
-    await
-    console.log(this.selectedType)
-    let data= new FormData()
-    let date = new Date()
-    console.log(this.currentProduct)
-    data.append('name',this.currentProduct.product.product_name)
-    data.append('brand',this.currentProduct.product.brands)
-    data.append('barcode',this.barcodeValue)
-    data.append('image',this.currentProduct.product.image_url)
-    data.append('type',this.selectedType.toString())
-    data.append('trash','1')
-    data.append('user','1')
-    console.log(data.get('name'))
-    let link = setQuery(QUERY.POST.CREATE_HISTORY)
-    let sentProduct = await this.http.post(link,data).toPromise()
-    this._router.navigateByUrl('/product/'+this.barcodeValue)
-    return
+    if (this.selectedType) {
+      this.error.status = false
+      console.log(this.selectedType)
+      let data= new FormData()
+      let date = new Date()
+      data.append('name',this.currentProduct.product.product_name)
+      data.append('brand',this.currentProduct.product.brands)
+      data.append('barcode',this.barcodeValue)
+      data.append('image',this.currentProduct.product.image_url)
+      data.append('type',this.selectedType.toString())
+      // @ts-ignore
+      data.append('user',JSON.parse(getCurrentUser()).id.toString())
+      console.log(data.get('name'))
+      let link = setQuery(QUERY.POST.CREATE_HISTORY)
+      let sentProduct = await this.http.post(link,data).toPromise()
+      this._router.navigateByUrl('/product/'+this.barcodeValue)
+      return
+    }
+    else {
+      console.log('error')
+      this.error.status = true
+    }
   }
 }

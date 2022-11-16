@@ -20,6 +20,7 @@
       <p>{{currentProduct.product.product_name}}</p>
       <img *ngIf="currentProduct.product.image_url" [src]="currentProduct.product.image_url" alt="">
       <div>
+        <app-error-box *ngIf="error.status" class="error-box" [error]="error.message"></app-error-box>
         <p>Sélectionnez la matière de l'emballage de votre produit : </p>
         <select name="id_type_id" id="type-select" [(ngModel)]="selectedType">
           <option value="" selected>Veuillez choisir une option</option>
