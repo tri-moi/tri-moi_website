@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     this._router = _router;
   }
 
-  loading:boolean=false
+  loading: boolean = false
   formData: IFormData = {
     email: null,
     passwordLogin: null,
@@ -60,13 +60,13 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     setInterval(() => {
-      if (this.loading===true) {
+      if (this.loading) {
         // @ts-ignore
-        if (document.getElementById('loading-text').textContent==='Chargement...') {
+        if (document.getElementById('loading-text').textContent === 'Chargement...') {
           // @ts-ignore
           document.getElementById('loading-text').textContent = 'Chargement.'
           // @ts-ignore
-        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
+        } else if (document.getElementById('loading-text').textContent === 'Chargement.') {
           // @ts-ignore
           document.getElementById('loading-text').textContent = 'Chargement..'
           // @ts-ignore
@@ -75,7 +75,7 @@ export class RegisterComponent implements OnInit {
           document.getElementById('loading-text').textContent = 'Chargement...'
         }
       }
-    },400)
+    }, 400)
     if (getLoggedIn()) {
       localStorage.removeItem('user')
       this._router.navigateByUrl("/")
@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit {
   }
 
   checkMail = (email: string) => {
-    this.loading=true
+    this.loading = true
     if (this.checkEmailFormat(email)) {
       let link = setQuery(QUERY.AUTH.CHECK_EMAIL)
       const formData = new FormData();
@@ -93,16 +93,12 @@ export class RegisterComponent implements OnInit {
           this.stepLogin = true
           this.stepRegister = false
           this.errors.email = null
-          console.log('login')
-          console.log("this.stepRegister", this.stepRegister, "this.stepLogin", this.stepLogin)
         } else {
           this.errors.email = null
           this.stepLogin = false
           this.stepRegister = true
-          console.log("this.stepRegister", this.stepRegister, "this.stepLogin", this.stepLogin)
         }
-        console.log(data)
-        this.loading=false
+        this.loading = false
       })
       this.step = true
     } else {
@@ -145,13 +141,12 @@ export class RegisterComponent implements OnInit {
     const formData = new FormData();
     if (this.stepLogin) {
       if (this.formData.email && this.formData.passwordLogin) {
-        this.loading=true
+        this.loading = true
         formData.append('email', this.formData.email);
         formData.append('password', this.formData.passwordLogin);
         let link = setQuery(QUERY.AUTH.LOGIN)
         this._http.post(link, formData).subscribe((data: any) => {
-          console.log("connexion", data)
-          this.loading=false
+          this.loading = false
           if (data.success === true) {
             data.user = {...data.user, isLoggedIn: true}
             localStorage.setItem('user', JSON.stringify(data.user));
@@ -168,7 +163,7 @@ export class RegisterComponent implements OnInit {
     } else if (this.stepRegister) {
       // TODO : mettre en place le formulaire d'inscription
       if (this.formData.email && this.formData.passwordRegister && this.formData.passwordRegisterConfirm && this.formData.firstName && this.formData.lastName) {
-        this.loading=true
+        this.loading = true
         formData.append('email', this.formData.email);
         formData.append('password', this.formData.passwordRegister);
         formData.append('password_confirm', this.formData.passwordRegisterConfirm);
@@ -177,12 +172,11 @@ export class RegisterComponent implements OnInit {
         let regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/
         if (this.formData.passwordRegisterConfirm !== this.formData.passwordRegister) {
           this.errors.passwordDouble = 'Veuillez entrer 2 mots de passe identiques.'
-        } else if (!this.formData.passwordRegister.match(regexPassword)) {
-          this.errors.password = 'Votre mot de passe doit contenir entre 8 et 20 caractères, y compris au moins un cheffre, une lettre majuscule et une lettre minuscule.'
-        }else {
+        } else if (!this.checkPasswordFormat(this.formData.passwordRegister)) {
+          this.errors.password = 'Votre mot de passe doit contenir entre 8 et 30 caractères, y compris au moins un cheffre, une lettre majuscule et une lettre minuscule.'
+        } else {
           let link = setQuery(QUERY.AUTH.REGISTER)
           this._http.post(link, formData).subscribe((data: any) => {
-            console.log("inscription", data)
             if (data.success === true) {
               data.user = {...data.user, isLoggedIn: true}
               localStorage.setItem('user', JSON.stringify(data.user));
@@ -190,7 +184,7 @@ export class RegisterComponent implements OnInit {
             } else {
               this.errors = data.error
             }
-            this.loading=false
+            this.loading = false
           })
         }
       } else {
