@@ -35,7 +35,7 @@ type IQuery = {
   }
 }
 
-export const setQuery = (query: any, id?: number | { user?: number, type?: number, trash?: number }): string => {
+export const setQuery = (query: any, id?: number | { user?: number, type?: number }): string => {
   switch (query) {
     case QUERY.AUTH.CHECK_EMAIL:
       return `${DEFAULT_QUERY + link.AUTH.CHECK_EMAIL}`;
@@ -72,14 +72,12 @@ export const setQuery = (query: any, id?: number | { user?: number, type?: numbe
     case QUERY.DELETE.DELETE_USER:
       return `${DEFAULT_QUERY + link.DELETE.DELETE_USER}/${id}`;
     case QUERY.GET.ALL_HISTORIES:
-      const {user, type, trash} = id as { user?: number, type?: number, trash?: number };
-      if (user && !type && !trash) {
+      const {user, type} = id as { user?: number, type?: number };
+      if (user && !type) {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?user=${user}`;
-      } else if (type && !user && !trash) {
+      } else if (type && !user) {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?type=${type}`;
-      } else if (trash && !user && !type) {
-        return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?trash=${trash}`;
-      } else if (user && type && !trash) {
+      } else if (user && type) {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?user=${user}&type=${type}`;
       } else {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}`;
@@ -127,9 +125,9 @@ const link: IQuery = {
     DELETE_HISTORY: "history",
   },
   AUTH: {
-    CHECK_EMAIL: "auth/check-email",
-    LOGIN: "auth/login",
-    REGISTER: "auth/register",
+    CHECK_EMAIL: "check-mail",
+    LOGIN: "login",
+    REGISTER: "register",
   }
 }
 

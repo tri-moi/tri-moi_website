@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   menuOpen = false;
-  constructor() { }
 
-  openMenu(){
+  constructor() {
+  }
+
+  openMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
-  ngOnInit(): void {
-  }
+  login = false
 
+  ngOnInit(): void {
+    const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
+    isLoggedIn === true ? this.login = true : this.login = false
+  }
 }

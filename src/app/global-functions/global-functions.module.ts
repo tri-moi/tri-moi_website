@@ -13,7 +13,8 @@ export class GlobalFunctionsModule { }
 
 //check if user is logged in
 export function getLoggedIn(){
-  if (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('user')) {
+  const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
+  if (isLoggedIn === true && localStorage.getItem('user')) {
     return true
   } else {
     return false
