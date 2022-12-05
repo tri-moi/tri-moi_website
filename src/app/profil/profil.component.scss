@@ -1,0 +1,52 @@
+@import '../../assets/scss/variables';
+@import '../../assets/css/flexboxgrid.min.css';
+
+
+//always load this one last
+@import '../../assets/scss/global';
+
+#profilContainer {
+  margin: 50px 0;
+  text-align: center;
+}
+
+#profilPic {
+  width: 85px;
+  border-radius: 50px;
+  border: solid 2px $black;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+}
+
+#profilLinksContainer {
+  display: flex;
+  flex-direction: row;
+  max-width: 359px;
+  flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.profilLinks {
+  background-color: #C4DFAA;
+  border: solid 2px #161616;
+  width: 130px;
+  height: 130px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  & img {
+    width: 50px;
+  }
+}
+
+.profilLinksText {
+  margin-top: -15px;
+}
+
+

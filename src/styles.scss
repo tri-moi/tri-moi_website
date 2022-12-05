@@ -30,6 +30,7 @@ input:focus {
   border: none;
   width: 205px;
   height: 50px;
+  padding: 10px 30px;
   transition: all .5s ease-out;
   display: flex;
   justify-content: center;
@@ -144,14 +145,14 @@ nav ul li a,
 nav ul li a:hover,
 nav ul li a:active,
 .contactLinkHeader {
-  padding: 10px 15px;
+  padding: 10px 20px;
 }
 
 nav ul li a {
   border: solid 2px transparent;
   @include min-lg {
     width: 100%;
-    font-size: 30px;
+    font-size: 20px;
     margin-left: -100%;
     display: block;
   }
@@ -246,7 +247,6 @@ input[type="checkbox"] {
   @include min-lg {
     margin-left: 0px;
     border-bottom: solid 2px $black;
-    padding: 30px;
   }
 }
 

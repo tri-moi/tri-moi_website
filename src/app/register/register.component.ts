@@ -59,20 +59,17 @@ export class RegisterComponent implements OnInit {
   stepRegister = false
 
   ngOnInit(): void {
+    const loadingElement = document.getElementById('loading-text')
     setInterval(() => {
-      if (this.loading) {
-        // @ts-ignore
-        if (document.getElementById('loading-text').textContent === 'Chargement...') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement.'
-          // @ts-ignore
-        } else if (document.getElementById('loading-text').textContent === 'Chargement.') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement..'
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement...'
+      if (loadingElement) {
+        if (this.loading) {
+          if (loadingElement.textContent === 'Chargement...') {
+            loadingElement.textContent = 'Chargement.'
+          } else if (loadingElement.textContent === 'Chargement.') {
+            loadingElement.textContent = 'Chargement..'
+          } else {
+            loadingElement.textContent = 'Chargement...'
+          }
         }
       }
     }, 400)
