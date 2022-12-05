@@ -36,9 +36,8 @@ export class ProductSheetComponent implements OnInit {
         }
       }
     },400)
-    let barcode:any
-    // @ts-ignore
-    this.barcode=this.route.params['_value'].barcode
+    let paramValue:any = this.route.params
+    this.barcode=paramValue['_value'].barcode
     let start = new Promise((resolve, reject) => {
       let checkBarcode:any
       let barcodeFormdata:any = new FormData()
