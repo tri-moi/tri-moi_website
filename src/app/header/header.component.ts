@@ -11,8 +11,7 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  login = false
 
   closeMenu(){
     console.log(this.menuCheckbox)
@@ -21,4 +20,8 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  ngOnInit(): void {
+    const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
+    isLoggedIn === true ? this.login = true : this.login = false
+  }
 }

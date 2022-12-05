@@ -5,33 +5,24 @@
 //always load this one last
 @import '../../assets/scss/global';
 
-//#mapContainer {
-//  height: 100vh;
-//}
+
+
 
 .map-container {
-  //position: absolute;
-  //top: 0;
-  //left: 0;
-  //right: 0;
-  //bottom: 0;
-  //margin: 30px;
-  //width: 100%;
+
   height: 69vh;
-  //margin-right: auto;
-  //margin-left: auto;
+  .map-frame {
+    height: 100%;
+    #map {
+      height: 100%;
+      z-index: 1;
+    }
+  }
 }
 
-.map-frame {
-  height: 100%;
-}
-
-#map {
-  height: 100%;
-  z-index: 1;
-}
 
 #locationSearch {
+  position: relative;
   height: 40px;
   display: flex;
   flex-direction: row;
@@ -42,25 +33,57 @@
   @include min-md {
     padding: 0 20px;
   }
-}
-
-#locationSearch img {
-  width: 20px;
-}
-
-#locationSearch input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  margin-left: 10px;
-}
-
-#locationSearch input::placeholder {
-  color: $black;
-}
-
-#locationSearch input:focus {
-  outline: none;
+  >img {
+    cursor: pointer;
+  }
+  .autocomplete {
+    position: absolute;
+    z-index: 2;
+    background-color: $light;
+    top: 100%;
+    width: calc(100% - 100px);
+    max-height: 200px;
+    overflow: auto;
+    border-bottom: solid 2px $black;
+    border-left: solid 2px $black;
+    border-right: solid 2px $black;
+    @include min-md {
+      width: calc(100% - 40px);
+    }
+    &--single {
+      display: flex;
+      flex-direction: row;
+      padding: $pad-min 0;
+      border-top: solid 1px $black;
+      cursor: pointer;
+      transition: 0.1s;
+      &:hover {
+        background-color: $green;
+      }
+      &_image {
+        margin-left: 2px;
+        width: 21px;
+      }
+      p {
+        margin: auto $rad;
+      }
+    }
+  }
+  img {
+    width: 20px;
+  }
+  input {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    margin-left: 10px;
+    &::placeholder {
+      color: #161616;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 #binFilter {
@@ -69,58 +92,42 @@
   width: 100%;
   justify-content: space-between;
   overflow: auto;
-}
-
-.binType {
-  border-top: solid 2px $black;
-  border-right: solid 2px $black;
-  border-left: none;
-  border-bottom: none;
-  min-width: 75px;
-  min-height: 75px;
-  width: 100%;
-  /* text-align: center; */
-  /* padding: 20px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.binType:last-child {
-  border-right: none;
-}
-
-.binType img {
-  width: 25px;
-}
-
-#glassFilter:hover,
-#glassFiler:active{
-  background-color: $green;
-}
-
-#plasticFilter:hover,
-#plasticFiler:active{
-  background-color: $warning;
-}
-
-#metalFilter:hover,
-#metalFiler:active{
-  background-color: $error;
-}
-
-#cardboardFilter:hover,
-#cardboardFiler:active{
-  background-color: $warning;
-}
-
-#paperFilter:hover,
-#paperFiler:active{
-  background-color: $blue;
-}
-
-#trashFilter:hover,
-#trashFiler:active{
-  background-color: $dark;
+  .binType {
+    border-top: solid 2px #161616;
+    border-right: solid 2px #161616;
+    border-left: none;
+    border-bottom: none;
+    min-width: 75px;
+    min-height: 75px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &:last-child {
+      border-right: none;
+    }
+    img {
+      width: 25px;
+    }
+    &#glassFilter:hover,
+    &#glassFilter.active{
+      background-color: $green;
+    }
+    &#plasticFilter:hover,
+    &#plasticFilter.active{
+      background-color: $blue;
+    }
+    &#householdFilter:hover,
+    &#householdFilter.active{
+      background-color: $error;
+    }
+    &#textileFilter:hover,
+    &#textileFilter.active{
+      background-color: $warning;
+    }
+    &#trashFilter:hover{
+      background-color: $dark;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 @import 'assets/scss/variables';
 @import 'assets/css/flexboxgrid.min.css';
-
+@import "../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "../node_modules/leaflet.markercluster/dist/MarkerCluster.css";
 
 //always load this one last
 @import 'assets/scss/global';
@@ -27,8 +28,8 @@ input:focus {
 
 .button {
   border: none;
-  //width: 205px;
-  //height: 50px;
+  width: 205px;
+  height: 50px;
   padding: 10px 30px;
   transition: all .5s ease-out;
   display: flex;
@@ -143,7 +144,7 @@ nav ul li {
 nav ul li a,
 nav ul li a:hover,
 nav ul li a:active,
-#contactLinkHeader {
+.contactLinkHeader {
   padding: 10px 20px;
 }
 
@@ -159,7 +160,7 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a:active,
-#contactLinkHeader {
+.contactLinkHeader {
   border: solid 2px $black;
 }
 
@@ -191,7 +192,7 @@ nav ul li a:active,
   }
 }
 
-#navMenuLinkConnexion {
+.navMenuLinkConnexion {
   display: none;
   @include min-lg {
     display: block;
@@ -199,7 +200,7 @@ nav ul li a:active,
   }
 }
 
-#contactLinkHeader {
+.contactLinkHeader {
   background-color: $green;
   &:hover {
     color: $white;

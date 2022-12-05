@@ -1,38 +1,67 @@
+<div class="loading" *ngIf="loading">
+  <h3 id="loading-text" class="loading--text">Chargement...</h3>
+</div>
 <div id="mapContainer">
   <div id="locationSearch">
-    <img src="./assets/images/icons8-search-100.png">
-    <input type="text" placeholder="RECHERCHE">
-    <img src="./assets/images/icons8-location-80.png">
+    <img src="./assets/images/icons8-search-100.png" *ngIf="searchQuery === ''">
+    <img src="./assets/images/icons8-multiplier-30.png" *ngIf="searchQuery !== ''" (click)="searchQuery = '';realTimeSearch()">
+    <input id="searchInput" type="text" placeholder="RECHERCHE" [(ngModel)]="searchQuery" (ngModelChange)="realTimeSearch()" #myInput>
+    <img *ngIf="!geoLocDenied" src="./assets/images/icons8-location-80.png" (click)="goToGeoloc()">
+    <div class="autocomplete" *ngIf="searchQuery!==''">
+      <div class="autocomplete--single" *ngFor="let hit of hits" (click)="goToMarker(hit,hit['fields']['adresse']+', '+hit['fields']['commune'])">
+        <img *ngIf="hit['fields']['pavtyp'] === 'Emballages en verre'" class="autocomplete--single_image" src="./assets/images/icons8-glass-bottle-64.png">
+        <img *ngIf="hit['fields']['pavtyp'] === 'Textile'" class="autocomplete--single_image" src="./assets/images/icons8-textile-64.png">
+        <img *ngIf="hit['fields']['pavtyp'] === 'Ordures ménagères'" class="autocomplete--single_image" src="./assets/images/icons8-soda-64.png">
+        <img *ngIf="hit['fields']['pavtyp'] === 'Emballages recyclables'" class="autocomplete--single_image" src="./assets/images/icons8-plastic-bottle-64.png">
+        <p>{{hit['fields']['adresse']}}, {{hit['fields']['commune']}}</p>
+      </div>
+    </div>
   </div>
   <div class="map-container">
     <div class="map-frame">
-      <div id="map"></div>
+      <div id="map" *ngIf="!geoLocDenied"
+           leaflet
+           [leafletOptions]="options"
+           [leafletLayers]="userLayer"
+           [(leafletCenter)]="center"
+           [(leafletZoom)]="zoom"
+           [leafletMarkerCluster]="[layerGroup]"
+           >
+
+
+      </div>
+      <div id="map" *ngIf="geoLocDenied"
+           leaflet
+           [leafletOptions]="options"
+           [(leafletCenter)]="center"
+           [(leafletZoom)]="zoom"
+           [leafletMarkerCluster]="[layerGroup]"
+           >
+
+
+      </div>
     </div>
   </div>
   <div id="binFilter">
-    <button id="glassFilter" class="binType">
+    <button id="glassFilter" class="binType" [class.active]="filters.includes('Emballages en verre')" (click)="addToFilters('fields.pavtyp', 'Emballages en verre')">
       <img src="./assets/images/icons8-glass-bottle-64.png">
       <p>verre</p>
     </button>
-    <button id="plasticFilter" class="binType">
+    <button id="plasticFilter" class="binType" [class.active]="filters.includes('Emballages recyclables')" (click)="addToFilters('fields.pavtyp', 'Emballages recyclables')">
       <img src="./assets/images/icons8-plastic-bottle-64.png">
-      <p>plastique</p>
+      <p>recyclable</p>
     </button>
-    <button id="metalFilter" class="binType">
+    <button id="householdFilter" class="binType" [class.active]="filters.includes('Ordures ménagères')" (click)="addToFilters('fields.pavtyp', 'Ordures ménagères')">
       <img src="./assets/images/icons8-soda-64.png">
-      <p>métal</p>
+      <p>ordures ménagères</p>
     </button>
-    <button id="cardboardFilter" class="binType">
-      <img src="./assets/images/icons8-cardboard-64.png">
-      <p>carton</p>
+    <button id="textileFilter" class="binType" [class.active]="filters.includes('Textile')" (click)="addToFilters('fields.pavtyp', 'Textile')">
+      <img src="./assets/images/icons8-textile-64.png">
+      <p>textiles</p>
     </button>
-    <button id="paperFilter" class="binType">
-      <img src="./assets/images/icons8-paper-stack-64.png">
-      <p>papier</p>
-    </button>
-    <button id="trashFilter" class="binType">
+    <button id="trashFilter" class="binType" (click)="clearFilters()">
       <img src="./assets/images/icons8-bin-64.png">
-      <p>déchet</p>
+      <p>tous les déchets</p>
     </button>
   </div>
 </div>

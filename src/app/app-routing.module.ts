@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './blank/blank.component';
-import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MapComponent } from './map/map.component';
+import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import {ProfilComponent} from "./profil/profil.component";
 import {HistoriqueComponent} from "./historique/historique.component";
 import {BadgeComponent} from "./badge/badge.component";
 import {ProduitComponent} from "./produit/produit.component";
+import { ScannerComponent } from './scanner/scanner.component';
+import { ProductSheetComponent } from './product-sheet/product-sheet.component';
 
 const routes: Routes = [
   {
@@ -16,11 +18,7 @@ const routes: Routes = [
     component: BlankComponent
   },
   {
-    path: 'connexion',
-    component: LoginComponent
-  },
-  {
-    path: 'inscription',
+    path: 'auth',
     component: RegisterComponent
   },
   {
@@ -46,6 +44,18 @@ const routes: Routes = [
   {
     path: 'produit',
     component: ProduitComponent
+  },
+  {
+    path: 'search',
+    component: SearchComponent
+  },
+  {
+    path: 'scanner',
+    component: ScannerComponent
+  },
+  {
+    path: 'product/:barcode',
+    component: ProductSheetComponent
   }
 ];
 
