@@ -5,20 +5,20 @@
     </div>
   </div>
   <div id="navContainer2">
-    <input type="checkbox" id="click">
+    <input type="checkbox" id="click" #menuCheckbox>
     <label for="click" class="menu-btn">
       <i class="fas fa-bars"></i>
     </label>
     <ul class="menu">
-      <li><a *ngIf="login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
+      <li><a (click)="closeMenu()" *ngIf="login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
              ariaCurrentWhenActive="page">Déconnexion</a></li>
-      <li><a *ngIf="!login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
+      <li><a (click)="closeMenu()" *ngIf="!login" class="navMenuLinks navMenuLinkConnexion" routerLink="/auth" routerLinkActive="active"
              ariaCurrentWhenActive="page">Connexion</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkHome" routerLink="" routerLinkActive="active"
+      <li><a (click)="closeMenu()" class="navMenuLinks" id="navMenuLinkHome" routerLink="" routerLinkActive="active"
              ariaCurrentWhenActive="page">Accueil</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkAbout" routerLink="" routerLinkActive="active"
+      <li><a (click)="closeMenu()" class="navMenuLinks" id="navMenuLinkAbout" routerLink="" routerLinkActive="active"
              ariaCurrentWhenActive="page">A propos</a></li>
-      <li><a class="navMenuLinks" id="navMenuLinkContact" routerLink="" routerLinkActive="active"
+      <li><a (click)="closeMenu()" class="navMenuLinks" id="navMenuLinkContact" routerLink="" routerLinkActive="active"
              ariaCurrentWhenActive="page">Contact</a></li>
     </ul>
   </div>
