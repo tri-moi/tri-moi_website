@@ -24,20 +24,15 @@ export class ProductSheetComponent implements OnInit {
       this._router.navigateByUrl('/connexion')
       return
     }
+    let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
       if (this.loading===true) {
-        // @ts-ignore
-        if (document.getElementById('loading-text').textContent==='Chargement...') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement.'
-          // @ts-ignore
-        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement..'
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement...'
+        if (loadingElement && loadingElement.textContent==='Chargement...') {
+          loadingElement.textContent = 'Chargement.'
+        } else if (loadingElement && loadingElement.textContent==='Chargement.') {
+          loadingElement.textContent = 'Chargement..'
+        } else if (loadingElement) {
+          loadingElement.textContent = 'Chargement...'
         }
       }
     },400)
