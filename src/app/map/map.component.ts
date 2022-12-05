@@ -119,7 +119,7 @@ export class MapComponent implements AfterViewInit {
         }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup()
           .on('click', event => {
           this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
-          this.realTimeSearch()
+          // this.realTimeSearch()
           this.disableAutocomplete()
           this.myInput.nativeElement.value=hit['fields']['adresse']+', '+hit['fields']['commune']
         }))
