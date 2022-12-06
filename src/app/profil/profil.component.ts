@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-profil',
@@ -7,9 +7,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  getLocalStorage(): any {
+    const jsonData = localStorage.getItem('user')
+    return JSON.parse(jsonData != null ? jsonData : "");
+  }
+
+  get userFirstName(): any {
+    const user = this.getLocalStorage()
+    return user.firtName
+  }
+
+  get userLastName(): any {
+    const user = this.getLocalStorage()
+    return user.lastName
+  }
+
+  get userEmail(): any {
+    const user = this.getLocalStorage()
+    return user.email
+  }
+
+  get userProfilPic(): any {
+    const user = this.getLocalStorage()
+    return user.profilePicture
+  }
 }
