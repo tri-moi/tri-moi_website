@@ -41,6 +41,10 @@
 
       </div>
     </div>
+    <a id="scannerButton" routerLink="/scanner" routerLinkActive="active"
+       ariaCurrentWhenActive="page">
+      <img src="./assets/images/icons8-barcode-scanner-80.png">
+    </a>
   </div>
   <div id="binFilter">
     <button id="glassFilter" class="binType" [class.active]="filters.includes('Emballages en verre')" (click)="addToFilters('fields.pavtyp', 'Emballages en verre')">
