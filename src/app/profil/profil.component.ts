@@ -20,7 +20,7 @@ export class ProfilComponent implements OnInit {
 
   get userFirstName(): any {
     const user = this.getLocalStorage()
-    return user.firtName
+    return user.firstName
   }
 
   get userLastName(): any {
