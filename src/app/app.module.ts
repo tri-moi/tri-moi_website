@@ -41,7 +41,6 @@ import { ProductSheetComponent } from './product-sheet/product-sheet.component';
     ProfilComponent,
     HistoriqueComponent,
     BadgeComponent,
-    ProduitComponent,
     ScannerComponent,
     ProductSheetComponent
   ],
