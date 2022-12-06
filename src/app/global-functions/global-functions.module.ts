@@ -22,7 +22,7 @@ export function getLoggedIn(){
 }
 export function getCurrentUser(){
   if (getLoggedIn()) {
-    return localStorage.getItem('user')
+    return JSON.parse(localStorage.getItem('user')||'')
   } else {
     return 'error'
   }

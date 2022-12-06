@@ -29,7 +29,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   scannerLoading:boolean=true
   ngOnInit(): void {
     if (getLoggedIn() === false) {
-      this._router.navigateByUrl('/connexion')
+      this._router.navigateByUrl('/auth')
       return
     }
     let link = setQuery(QUERY.GET.ALL_TYPES)
@@ -98,7 +98,6 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
       data.append('type',this.selectedType.toString())
-      // @ts-ignore
       data.append('user',JSON.parse(getCurrentUser()).id.toString())
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
