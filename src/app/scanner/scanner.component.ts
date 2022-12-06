@@ -70,6 +70,8 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     this.barcodeValue='3017620422003'
     let barcodeFormdata = new FormData()
     barcodeFormdata.append('barcode',this.barcodeValue)
+    barcodeFormdata.append('user',getCurrentUser().id)
+    console.log(barcodeFormdata)
     let checkBarcode:any = {}
     checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise()
     console.log(checkBarcode)
@@ -98,7 +100,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
       data.append('type',this.selectedType.toString())
-      data.append('user',JSON.parse(getCurrentUser()).id.toString())
+      data.append('user',getCurrentUser().id.toString())
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
       let sentProduct = await this.http.post(link,data).toPromise()

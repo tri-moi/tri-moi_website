@@ -4,7 +4,7 @@
 <div class="product" *ngIf="!productError.status">
   <div class="product--container">
     <p class="product--container_name">{{product.name}}</p>
-    <img class="product--container_image" *ngIf="product.image" [src]="product.image" [class.verre]="product.type.includes('verre')" [class.textile]="product.type.includes('Textile')" [class.recyclable]="product.type.includes('recyclables')" [class.menager]="product.type.includes('ménagères')" alt="">
+    <img class="product--container_image" *ngIf="product.image" [src]="product.image" [class.verre]="product.type.includes('verre')" [class.textile]="product.type.includes('Textile')" [class.recyclable]="product.type.includes('recyclables')" [class.menager]="product.type.includes('ménagères')" alt="Photo du produit({{product.name}})">
     <p class="product--container_info">
       {{product.type}} :
     </p>

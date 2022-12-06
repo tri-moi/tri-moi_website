@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { getLoggedIn } from '../global-functions/global-functions.module';
+import {getCurrentUser, getLoggedIn } from '../global-functions/global-functions.module';
 @Component({
   selector: 'app-product-sheet',
   templateUrl: './product-sheet.component.html',
@@ -42,6 +42,7 @@ export class ProductSheetComponent implements OnInit {
       let checkBarcode:any
       let barcodeFormdata:any = new FormData()
       barcodeFormdata.append('barcode',this.barcode)
+      barcodeFormdata.append('user',getCurrentUser().id)
       resolve(checkBarcode = this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise());
     }).then((res:any) => {
         console.log(res)
