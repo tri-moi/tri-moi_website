@@ -14,7 +14,10 @@ export class HistoriqueComponent implements OnInit {
 
   loading:boolean=true
   page:number=1
+  nbOfPages:number=1;
+  showPagination:boolean=false
   history:any=[]
+  productCounts:any=[]
 
   ngOnInit(): void {
     if (getLoggedIn() === false) {
@@ -33,14 +36,28 @@ export class HistoriqueComponent implements OnInit {
         }
       }
     },400)
+    let test = new Promise((resolve, reject) => {
+      resolve(this.http.get('http://127.0.0.1:8000/api/productCounts/'+getCurrentUser().id).toPromise());
+    }).then((res:any) => {
+      console.log('test',res)
+      this.productCounts = res
+      if (this.productCounts.total>10) {
+        this.showPagination=true;
+        this.nbOfPages=Math.ceil(this.productCounts.total/10)
+      }
+      this.paginate()
+    })
+
+  }
+  paginate(page:number=1) {
+    this.loading = true
     let history = new Promise((resolve, reject) => {
-      // @ts-ignore
-      resolve(this.http.get('http://127.0.0.1:8000/api/historyByUser/' + getCurrentUser().id+'?page='+this.page).toPromise());
+      resolve(this.http.get('http://127.0.0.1:8000/api/historyByUser/' + getCurrentUser().id+'?page='+page).toPromise());
     }).then((res: any) => {
       console.log(res)
       this.loading = false
       this.history=res
+      this.page=page
     })
   }
-
 }
