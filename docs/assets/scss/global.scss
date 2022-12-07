@@ -1,0 +1,105 @@
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  body {
+    background-color: $light;
+  };
+  .container {
+    padding: 0 $pad!important;
+  }
+  p,span,button,input,a,h5,h6 {
+    color: black;
+    font-size: 16px;
+    @include min-sm {
+      font-size: 12px;
+    }
+  }
+  h1,h2,h3,h4,h5,h6 {
+    font-weight: 800;
+
+  }
+  h1 {
+    font-size: 60px;
+    @include min-sm {
+      font-size: 56px;
+    }
+  }
+  h2 {
+    font-size: 50px;
+    @include min-sm {
+      font-size: 46px;
+    }
+  }
+  h3 {
+    font-size: 40px;
+    @include min-sm {
+      font-size: 36px;
+    }
+  }
+  h4 {
+    font-size: 30px;
+    @include min-sm {
+      font-size: 26px;
+    }
+  }
+  h5 {
+    font-size: 20px;
+    @include min-sm {
+      font-size: 16px;
+    }
+  }
+  h6 {
+    font-size: 16px;
+    @include min-sm {
+      font-size: 12px;
+    }
+  }
+  form {
+    width: 50%;
+    min-width: 300px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.5) ;
+    z-index: 3;
+    display: flex;
+    &_text, &--text {
+      margin: auto;
+      text-align: center;
+      color: white;
+    }
+  }
+}
+//button, input[type=submit], .button {
+//  background-color: $light;
+//  cursor: pointer;
+//  padding: $rad $pad-min;
+//  border-width: 2px;
+//  border-style: solid;
+//  transition: 0.1s;
+//  &:hover:not(.dark) {
+//    filter: brightness(90%);
+//  }
+//  &.dark {
+//    color: $light;
+//    background-color: black;
+//    border: none;
+//    &:hover {
+//      color: black;
+//      background-color: $light;
+//      outline: 2px solid black;
+//    }
+//  }
+//}

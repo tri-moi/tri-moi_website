@@ -67,7 +67,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   async scan(result:any) {
     console.log(result)
     this.scannerLoading=true
-    if (result.codeResult.code) {
+    if (result.codeResult) {
       this.barcodeValue=result.codeResult.code
     } else {
       this.barcodeValue='3168930159896'

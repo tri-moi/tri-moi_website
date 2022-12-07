@@ -4,7 +4,7 @@
 <div class="container">
   <div class="scanner-feed">
     <barcode-scanner-livestream
-      *ngIf="!scannerLoading"
+      *ngIf="barcodeValue===null"
       [type]="['ean','upc']"
       (valueChanges)="scan($event)"
     ></barcode-scanner-livestream>
