@@ -65,9 +65,14 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   }
 
   async scan(result:any) {
+    console.log(result)
+    if (result.codeResult.code) {
+      this.barcodeValue=result.codeResult.code
+    } else {
+      this.barcodeValue='3168930159896'
+    }
     this.currentProduct.status=null
     this.scannerLoading = true
-    this.barcodeValue='3017620422003'
     let barcodeFormdata = new FormData()
     barcodeFormdata.append('barcode',this.barcodeValue)
     barcodeFormdata.append('user',getCurrentUser().id)
@@ -94,13 +99,14 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       this.error.status = false
       console.log(this.selectedType)
       let data= new FormData()
-      let date = new Date()
+      let badge = '%"id":1%'
       data.append('name',this.currentProduct.product.product_name)
       data.append('brand',this.currentProduct.product.brands)
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
       data.append('type',this.selectedType.toString())
       data.append('user',getCurrentUser().id.toString())
+      data.append('badge',badge)
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
       let sentProduct = await this.http.post(link,data).toPromise()
