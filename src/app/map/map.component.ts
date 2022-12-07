@@ -24,6 +24,7 @@ export class MapComponent implements AfterViewInit {
   loading = true
   hitsPerPage = 1000
   searchQuery = ''
+  hideAutocomplete:boolean = false
   filters = ''
   urlFilter:string
   hits:any = []
@@ -113,7 +114,8 @@ export class MapComponent implements AfterViewInit {
         }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup()
           .on('click', event => {
           this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
-          this.realTimeSearch()
+          // this.realTimeSearch()
+          this.disableAutocomplete()
           this.myInput.nativeElement.value=hit['fields']['adresse']+', '+hit['fields']['commune']
         }))
     })
@@ -162,6 +164,7 @@ export class MapComponent implements AfterViewInit {
       }])
   }
   realTimeSearch() {
+    this.hideAutocomplete = false
     if (this.filters === '') {
       this.searchMultiple([{
         indexName:'pav',
@@ -220,11 +223,18 @@ export class MapComponent implements AfterViewInit {
     this.zoom = 15
     console.log('marker',marker)
     this.center = (new L.LatLng(marker.fields.geo_point_2d[0], marker.fields.geo_point_2d[1]))
+    this.disableAutocomplete()
+    console.log('name')
     if (name !== '') {
+      console.log('pas name')
       this.myInput.nativeElement.value =name
       this.searchQuery = name
-      this.realTimeSearch()
+      this.disableAutocomplete()
+      this.hideAutocomplete = true
     }
+  }
+  disableAutocomplete() {
+    this.hideAutocomplete=true
   }
 
 }

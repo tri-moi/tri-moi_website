@@ -9,8 +9,8 @@
 
 
 .map-container {
-
   height: 69vh;
+  position: relative;
   .map-frame {
     height: 100%;
     #map {
@@ -86,6 +86,24 @@
   }
 }
 
+#scannerButton {
+  background-color: $light;
+  border: solid 2px $black;
+  border-radius: 100%;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+  width: 70px;
+  img {
+    width: 30px;
+  }
+}
+
 #binFilter {
   display: flex;
   flex-direction: row;
@@ -93,8 +111,9 @@
   justify-content: space-between;
   overflow: auto;
   .binType {
-    border-top: solid 2px #161616;
-    border-right: solid 2px #161616;
+    background-color: $light;
+    border-top: solid 2px $black;
+    border-right: solid 2px $black;
     border-left: none;
     border-bottom: none;
     min-width: 75px;

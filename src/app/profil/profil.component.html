@@ -1,7 +1,7 @@
 <div id="profilContainer">
-  <img id="profilPic" src="./assets/images/defaultpp.jpg">
-  <h4>Prénom Nom</h4>
-  <p>adresse email</p>
+  <img id="profilPic" src="{{userProfilPic}}">
+  <h4>{{userFirstName}} {{userLastName}}</h4>
+  <p>{{userEmail}}</p>
   <div id="profilLinksContainer">
     <a class="profilLinks" routerLink="/badge">
       <h4>0</h4>
@@ -20,4 +20,9 @@
       <p class="profilLinksText">Paramètres</p>
     </a>
   </div>
+  <a routerLink="/auth" routerLinkActive="active" ariaCurrentWhenActive="page">
+  <button type="button" class="button buttonRed">
+    <div class="buttonRedText">Déconnexion</div>
+  </button>
+  </a>
 </div>

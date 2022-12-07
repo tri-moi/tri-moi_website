@@ -24,4 +24,14 @@ export class HeaderComponent implements OnInit {
     const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
     isLoggedIn === true ? this.login = true : this.login = false
   }
+
+  getLocalStorage(): any {
+    const jsonData = localStorage.getItem('user')
+    return JSON.parse(jsonData != null ? jsonData : "");
+  }
+
+  get userProfilPic(): any {
+    const user = this.getLocalStorage()
+    return user.profilePicture
+  }
 }

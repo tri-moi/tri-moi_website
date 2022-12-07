@@ -55,6 +55,12 @@ input:focus {
   background-position: right bottom;
 }
 
+.buttonRed {
+  background: linear-gradient(to right, $error 50%, $black 50%);
+  background-size: 200% 100%;
+  background-position: right bottom;
+}
+
 .buttonBlack {
   background: linear-gradient(to right, $green 50%, $black 50%);
   background-size: 200% 100%;
@@ -62,7 +68,8 @@ input:focus {
 }
 
 .buttonGreenText,
-.buttonBlackText {
+.buttonBlackText,
+.buttonRedText{
   text-align: center;
   font-size: 16px;
   line-height: 30px;
@@ -75,7 +82,8 @@ input:focus {
 
 }
 
-.buttonBlackText {
+.buttonBlackText,
+.buttonRedText {
   color: $white;
 }
 
@@ -95,7 +103,7 @@ nav {
   }
 }
 
-#navLogo {
+#navLogo a {
   font-family: 'Berkshire Swash', cursive;
   font-size: 40px;
 
@@ -105,6 +113,22 @@ nav {
 #navContainer2,
 #navContainer3 {
   width: calc(100% / 3);
+}
+
+#navContainer2 {
+  @include  min-lg {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+#navContainer2 .profilLinkHeader {
+  display: none;
+  @include min-lg {
+    display: block;
+    margin-right: 10px;
+  }
 }
 
 #navContainer1,
@@ -199,6 +223,12 @@ nav ul li a:active,
     background-color: $green;
   }
 }
+
+.profilLinkHeader img {
+    width: 44px;
+    border: solid 2px black;
+    border-radius: 100%;
+  }
 
 .contactLinkHeader {
   background-color: $green;
