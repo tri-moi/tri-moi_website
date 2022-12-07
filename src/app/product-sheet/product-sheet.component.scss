@@ -18,7 +18,8 @@
     }
   }
   &_image {
-
+    max-height: 500px;
+    object-fit: contain;
     border: solid 2px $black;
     width: 50%;
     min-width: 300px;

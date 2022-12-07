@@ -16,7 +16,8 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   constructor(private http: HttpClient,_router: Router) { this._router = _router; }
   @ViewChild(BarcodeScannerLivestreamComponent)
   barcodeScanner:BarcodeScannerLivestreamComponent;
-  barcodeValue:any;
+  barcodeValue:any='';
+  barcodeInput:string |  number = ''
   currentProduct:any = {
     status:null
   };
@@ -65,9 +66,17 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   }
 
   async scan(result:any) {
+    console.log(result)
+    this.scannerLoading=true
+    if (result.codeResult) {
+      this.barcodeValue=result.codeResult.code
+    } else if (this.barcodeInput!=='') {
+      this.barcodeValue=this.barcodeInput
+    } else {
+      this.barcodeValue='3168930159896'
+    }
     this.currentProduct.status=null
     this.scannerLoading = true
-    this.barcodeValue='3017620422003'
     let barcodeFormdata = new FormData()
     barcodeFormdata.append('barcode',this.barcodeValue)
     barcodeFormdata.append('user',getCurrentUser().id)
@@ -76,6 +85,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise()
     console.log(checkBarcode)
     if (checkBarcode.message !=='success') {
+      this.barcodeScanner.stop()
       let productData:any = {}
       productData = await this.http.get('https://world.openfoodfacts.org/api/v0/product/'+this.barcodeValue+'.json').toPromise()
       this.currentProduct=productData
@@ -87,6 +97,8 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     this.scannerLoading = false
     if (this.currentProduct.status===1) {
       this.barcodeScanner.stop();
+    } else {
+      this.barcodeScanner.start()
     }
   }
   async sendData() {
@@ -94,13 +106,14 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       this.error.status = false
       console.log(this.selectedType)
       let data= new FormData()
-      let date = new Date()
+      let badge = '%"id":1%'
       data.append('name',this.currentProduct.product.product_name)
       data.append('brand',this.currentProduct.product.brands)
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
       data.append('type',this.selectedType.toString())
       data.append('user',getCurrentUser().id.toString())
+      data.append('badge',badge)
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
       let sentProduct = await this.http.post(link,data).toPromise()

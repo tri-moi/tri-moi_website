@@ -7,15 +7,6 @@
   padding: 0 20px;
 }
 
-#scannerTitle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  & img {
-    width: 50px;
-    margin-right: 10px;
-  }
-}
 
 #searchBarCodeContainer p,
 #searchBarCodeContainer input {
@@ -27,11 +18,32 @@
   padding: 50px;
 }
 
-.scanner-feed {
-  max-width: 300px;
-  margin-right: auto;
-  margin-left: auto;
+.scanner {
+  &-feed {
+    max-width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  &_error {
+    width: 100%;
+    background-color: $error;
+    padding-block: $pad;
+    margin-top: $pad;
+    p {
+      text-align: center;
+    }
+  }
+  &_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & img {
+      width: 50px;
+      margin-right: 10px;
+    }
+  }
 }
+
 
 #searchBarCodeContainer {
   display: flex;
