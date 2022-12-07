@@ -1,22 +1,58 @@
-<div id="historiqueContainer">
-  <div id="historiqueTitle">
+<div class="loading" *ngIf="loading">
+  <h2 id="loading-text" class="loading_text">Chargement...</h2>
+</div>
+<div *ngIf="loading===false" class="history">
+  <div class="history_title">
     <img src="./assets/images/icons8-historical-64.png">
     <h4>Historique</h4>
   </div>
-  <div class="historiqueItem">
-    <div class="historiqueItemImage">
-      <img src="./assets/images/0-removebg-preview.png">
+  <div *ngIf="history.status==='error'">
+    <p>Aucun article dans votre historique!</p>
+  </div>
+  <div class="history--counts" *ngIf="history.status==='success'">
+    <div class="history--counts--item verre">
+      <img src="./assets/images/icons8-glass-bottle-64.png">
+      <span>{{productCounts.verre}}</span>
     </div>
-    <div class="historiqueItemText">
-      <p>Exemple 1</p>
+    <div class="history--counts--item recyclable">
+      <img src="./assets/images/icons8-plastic-bottle-64.png">
+      <span>{{productCounts.recyclables}}</span>
+    </div>
+    <div class="history--counts--item menager">
+      <img src="./assets/images/icons8-soda-64.png">
+      <span>{{productCounts.menageres}}</span>
+    </div>
+    <div class="history--counts--item textile">
+      <img src="./assets/images/icons8-textile-64.png">
+      <span>{{productCounts.textile}}</span>
     </div>
   </div>
-  <div class="historiqueItem">
-    <div class="historiqueItemImage">
-      <img src="./assets/images/0-removebg-preview.png">
-    </div>
-    <div class="historiqueItemText">
-      <p>Exemple 2</p>
+  <div *ngIf="history.status==='success'" class="history--separator">
+
+  </div>
+  <div class="history--list" *ngIf="history.status==='success'">
+    <a [href]="'/product/'+item.barcode" *ngFor="let item of history.histories" class="history--list--item">
+      <div *ngIf="item.type.includes('verre')" class="history--list--item_image verre">
+        <img src="./assets/images/icons8-glass-bottle-64.png">
+      </div>
+      <div *ngIf="item.type.includes('Textile')" class="history--list--item_image textile">
+        <img src="./assets/images/icons8-textile-64.png">
+      </div>
+      <div *ngIf="item.type.includes('ménagères')" class="history--list--item_image menager">
+        <img src="./assets/images/icons8-soda-64.png">
+      </div>
+      <div *ngIf="item.type.includes('recyclables')" class="history--list--item_image recyclable">
+        <img src="./assets/images/icons8-plastic-bottle-64.png">
+      </div>
+      <div class="history--list--item_title">
+        <p>{{item.name}}</p>
+      </div>
+    </a>
+
+    <div class="history--list--paginator" *ngIf="showPagination">
+      <div class="history--list--paginator_item" *ngFor="let _ of [].constructor(nbOfPages); let i = index" [class]="{'active':i+1===page}" (click)="paginate(i+1)">
+        {{i+1}}
+      </div>
     </div>
   </div>
 </div>

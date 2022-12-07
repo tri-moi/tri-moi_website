@@ -16,7 +16,6 @@ import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './profil/profil.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { BadgeComponent } from './badge/badge.component';
-import { ProduitComponent } from './produit/produit.component';
 import { FormsModule } from '@angular/forms';
 import {LoginComponent} from './login/login.component';
 import {ErrorBoxComponent} from './error-box/error-box.component';
@@ -41,7 +40,6 @@ import { ProductSheetComponent } from './product-sheet/product-sheet.component';
     ProfilComponent,
     HistoriqueComponent,
     BadgeComponent,
-    ProduitComponent,
     ScannerComponent,
     ProductSheetComponent
   ],

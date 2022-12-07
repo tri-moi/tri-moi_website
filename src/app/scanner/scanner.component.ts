@@ -29,7 +29,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   scannerLoading:boolean=true
   ngOnInit(): void {
     if (getLoggedIn() === false) {
-      this._router.navigateByUrl('/connexion')
+      this._router.navigateByUrl('/auth')
       return
     }
     let link = setQuery(QUERY.GET.ALL_TYPES)
@@ -40,20 +40,15 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   }
   ngAfterViewInit(): void {
 
+    let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
       if (this.scannerLoading===true) {
-        // @ts-ignore
-        if (document.getElementById('loading-text').textContent==='Chargement...') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement.'
-          // @ts-ignore
-        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement..'
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement...'
+        if (loadingElement && loadingElement.textContent==='Chargement...') {
+          loadingElement.textContent = 'Chargement.'
+        } else if (loadingElement && loadingElement.textContent==='Chargement.') {
+          loadingElement.textContent = 'Chargement..'
+        } else if (loadingElement) {
+          loadingElement.textContent = 'Chargement...'
         }
       }
     },400)
@@ -75,6 +70,8 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     this.barcodeValue='3017620422003'
     let barcodeFormdata = new FormData()
     barcodeFormdata.append('barcode',this.barcodeValue)
+    barcodeFormdata.append('user',getCurrentUser().id)
+    console.log(barcodeFormdata)
     let checkBarcode:any = {}
     checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise()
     console.log(checkBarcode)
@@ -103,8 +100,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
       data.append('type',this.selectedType.toString())
-      // @ts-ignore
-      data.append('user',JSON.parse(getCurrentUser()).id.toString())
+      data.append('user',getCurrentUser().id.toString())
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
       let sentProduct = await this.http.post(link,data).toPromise()

@@ -8,7 +8,6 @@ import { HomeComponent } from './home/home.component';
 import {ProfilComponent} from "./profil/profil.component";
 import {HistoriqueComponent} from "./historique/historique.component";
 import {BadgeComponent} from "./badge/badge.component";
-import {ProduitComponent} from "./produit/produit.component";
 import { ScannerComponent } from './scanner/scanner.component';
 import { ProductSheetComponent } from './product-sheet/product-sheet.component';
 
@@ -40,10 +39,6 @@ const routes: Routes = [
   {
     path: 'badge',
     component: BadgeComponent
-  },
-  {
-    path: 'produit',
-    component: ProduitComponent
   },
   {
     path: 'search',

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import { getLoggedIn } from '../global-functions/global-functions.module';
+import {getCurrentUser, getLoggedIn } from '../global-functions/global-functions.module';
 @Component({
   selector: 'app-product-sheet',
   templateUrl: './product-sheet.component.html',
@@ -24,30 +24,25 @@ export class ProductSheetComponent implements OnInit {
       this._router.navigateByUrl('/connexion')
       return
     }
+    let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
       if (this.loading===true) {
-        // @ts-ignore
-        if (document.getElementById('loading-text').textContent==='Chargement...') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement.'
-          // @ts-ignore
-        } else if (document.getElementById('loading-text').textContent==='Chargement.') {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement..'
-          // @ts-ignore
-        } else {
-          // @ts-ignore
-          document.getElementById('loading-text').textContent = 'Chargement...'
+        if (loadingElement && loadingElement.textContent==='Chargement...') {
+          loadingElement.textContent = 'Chargement.'
+        } else if (loadingElement && loadingElement.textContent==='Chargement.') {
+          loadingElement.textContent = 'Chargement..'
+        } else if (loadingElement) {
+          loadingElement.textContent = 'Chargement...'
         }
       }
     },400)
-    let barcode:any
-    // @ts-ignore
-    this.barcode=this.route.params['_value'].barcode
+    let paramValue:any = this.route.params
+    this.barcode=paramValue['_value'].barcode
     let start = new Promise((resolve, reject) => {
       let checkBarcode:any
       let barcodeFormdata:any = new FormData()
       barcodeFormdata.append('barcode',this.barcode)
+      barcodeFormdata.append('user',getCurrentUser().id)
       resolve(checkBarcode = this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise());
     }).then((res:any) => {
         console.log(res)
