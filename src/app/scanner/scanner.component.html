@@ -1,13 +1,26 @@
 <div class="loading" *ngIf="scannerLoading">
   <h2 id="loading-text" class="loading_text">Chargement...</h2>
 </div>
-<div class="container">
+<div id="scannerTitle">
+  <img src="./assets/images/icons8-barcode-scanner-80.png">
+  <h4>Scanner le code barre</h4>
+</div>
+<!--<p>Placez le code barre du produit dans le cadre</p>-->
+<div id="scannerContainer">
   <div class="scanner-feed">
     <barcode-scanner-livestream
       [type]="['ean','upc']"
       (valueChanges)="scan($event)"
     ></barcode-scanner-livestream>
   </div>
+</div>
+<div id="searchBarCodeContainer">
+  <p>Ou entrez le code du produit</p>
+  <input type="number" name="barCodeNumber" id="barCodeNumber">
+  <button type="button" class="button buttonBlack">
+    <div class="buttonBlackText">Valider</div>
+  </button>
+</div>
   <div class="scanner-dashboard">
     <button (click)="scan($event)">
       test
@@ -33,6 +46,6 @@
     </div>
   </div>
 
-</div>
+<!--</div>-->
 
 
