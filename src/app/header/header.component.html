@@ -6,8 +6,8 @@
     </div>
   </div>
   <div id="navContainer2">
-    <a *ngIf="login" class="profilLinkHeader" routerLink="/profil" routerLinkActive="active" ariaCurrentWhenActive="page">
-      <img src="{{userProfilPic}}">
+    <a (click)="closeMenu()" *ngIf="login" class="profilLinkHeader" routerLink="/profil" routerLinkActive="active" ariaCurrentWhenActive="page">
+      <img src="http://127.0.0.1:8000/api/profil-pic/{{userIdUser}}">
     </a>
     <input type="checkbox" id="click" #menuCheckbox>
     <label for="click" class="menu-btn">
@@ -28,7 +28,7 @@
     <a *ngIf="!login" class="contactLinkHeader" routerLink="/auth" routerLinkActive="active"
        ariaCurrentWhenActive="page">Connexion</a>
     <a *ngIf="login" class="profilLinkHeader" routerLink="/profil" routerLinkActive="active" ariaCurrentWhenActive="page">
-      <img src="{{userProfilPic}}">
+      <img src="http://127.0.0.1:8000/api/profil-pic/{{userIdUser}}">
     </a>
   </div>
 </nav>

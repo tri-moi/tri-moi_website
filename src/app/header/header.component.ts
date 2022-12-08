@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { getLoggedIn } from '../global-functions/global-functions.module';
 import { LoggedInService } from '../logged-in.service';
+import {User} from "../type/User";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { LoggedInService } from '../logged-in.service';
 })
 export class HeaderComponent implements OnInit {
 
-  @ViewChild('menuCheckbox') menuCheckbox:any;
+  @ViewChild('menuCheckbox') menuCheckbox: any;
 
   constructor(private authenticationService: LoggedInService) {
     this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   login:boolean
 
-  closeMenu(){
+  closeMenu() {
     console.log(this.menuCheckbox)
     this.menuCheckbox.nativeElement.checked = false;
     console.log(this.menuCheckbox)
@@ -32,17 +32,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (getLoggedIn()) {
-    //   this.authenticationService.login()
-    // } else {
-    //   this.authenticationService.logout()
-    // }
     console.log('header')
     this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
       console.log('loggedIn',loggedIn)
     });
-    // const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
-    // isLoggedIn === true ? this.login = true : this.login = false
   }
 
   getLocalStorage(): any {
@@ -50,8 +43,8 @@ export class HeaderComponent implements OnInit {
     return JSON.parse(jsonData != null ? jsonData : "");
   }
 
-  get userProfilPic(): any {
-    const user = this.getLocalStorage()
-    return user.profilePicture
+  get userIdUser(): any {
+    const user: User = this.getLocalStorage()
+    return user.id
   }
 }

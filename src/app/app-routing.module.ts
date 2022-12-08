@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { BlankComponent } from './blank/blank.component';
-import { RegisterComponent } from './register/register.component';
-import { MapComponent } from './map/map.component';
-import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './home/home.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {BlankComponent} from './blank/blank.component';
+import {RegisterComponent} from './register/register.component';
+import {MapComponent} from './map/map.component';
+import {SearchComponent} from './search/search.component';
 import {ProfilComponent} from "./profil/profil.component";
 import {HistoriqueComponent} from "./historique/historique.component";
 import {BadgeComponent} from "./badge/badge.component";
-import { ScannerComponent } from './scanner/scanner.component';
-import { ProductSheetComponent } from './product-sheet/product-sheet.component';
+import {ScannerComponent} from './scanner/scanner.component';
+import {ProductSheetComponent} from './product-sheet/product-sheet.component';
+import {ParametreComponent} from "./parametre/parametre.component";
 
 const routes: Routes = [
   {
@@ -22,10 +22,6 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: MapComponent
-  },
-  {
-    path: 'map',
     component: MapComponent
   },
   {
@@ -51,11 +47,16 @@ const routes: Routes = [
   {
     path: 'product/:barcode',
     component: ProductSheetComponent
-  }
+  },
+  {
+    path: 'parametres',
+    component: ParametreComponent
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

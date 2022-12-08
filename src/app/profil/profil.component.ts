@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {User} from "../type/User";
 
 @Component({
   selector: 'app-profil',
@@ -33,8 +34,8 @@ export class ProfilComponent implements OnInit {
     return user.email
   }
 
-  get userProfilPic(): any {
-    const user = this.getLocalStorage()
-    return user.profilePicture
+  get userIdUser(): any {
+    const user: User = this.getLocalStorage()
+    return user.id
   }
 }

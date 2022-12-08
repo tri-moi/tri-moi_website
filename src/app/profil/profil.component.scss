@@ -18,6 +18,8 @@
 
 #profilPic {
   width: 85px;
+  object-fit: cover;
+  height: 85px;
   border-radius: 50px;
   border: solid 2px $black;
   margin-left: auto;
