@@ -232,6 +232,8 @@ nav ul li a:active,
 
 .profilLinkHeader img {
   width: 44px;
+  height: 44px;
+  object-fit: cover;
   border: solid 2px black;
   border-radius: 100%;
 }
