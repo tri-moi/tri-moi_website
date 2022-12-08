@@ -10,91 +10,12 @@
   padding: 0 20px;
 }
 
-.badges {
-  &_title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    & img {
-      width: 50px;
-      margin-right: 10px;
-    }
-  }
-  &--category {
-    margin-bottom: $pad;
-    &--item {
-      display: flex;
-      flex-wrap: wrap;
-      margin-block: $pad-min;
-      p {
-        width: 100%;
-        margin-bottom: $pad-min;
-      }
-      &_medal {
-        width: 50px;
-        height: 50px;
-        background-color: yellow;
-        filter: grayscale(0.9);
-        margin-right: $pad-min;
-        &.done {
-          filter: none;
-        }
-      }
-      &--bar {
-        margin-block: auto;
-        border: 2px solid black;
-        height: 25px;
-        width:calc(100% - 65px);
-        max-width: 500px;
-        position: relative;
-        &_percentage {
-          height: 100%;
-          display: flex;
-          border-right: 2px solid black;
-          p {
-            width: 100%;
-            text-align: right;
-            margin-block: auto;
-            margin-inline: $rad;
-          }
-        }
-        &.done {
-          .badges--category--item--bar_percentage {
-            width: 100%!important;
-            filter: grayscale(0.8);
-            border-right: none;
-          }
-        }
-        &_medal {
-          width: 50px;
-          height: 50px;
-          background-color: yellow;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-      &.menageres {
-        .badges--category--item--bar_percentage {
-          background-color: $error;
-        }
-      }
-      &.recyclables {
-        .badges--category--item--bar_percentage {
-          background-color: $blue;
-        }
-      }
-      &.verre {
-        .badges--category--item--bar_percentage {
-          background-color: $success;
-        }
-      }
-      &.textiles {
-        .badges--category--item--bar_percentage {
-          background-color: $warning;
-        }
-      }
-    }
+#badgeTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  & img {
+    width: 50px;
+    margin-right: 10px;
   }
 }

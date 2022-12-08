@@ -39,18 +39,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       return
     }
     let link = setQuery(QUERY.GET.ALL_TYPES)
-    this.http.get(link).subscribe((res:any) => {
-      res.map((e:any )=> {
-        if (e.name.includes('Textile')) {
-          e.badgeId=4
-        } else if (e.name.includes('recyclable')) {
-          e.badgeId=1
-        } else if (e.name.includes('verre')) {
-          e.badgeId=2
-        } else {
-          e.badgeId=3
-        }
-      })
+    this.http.get(link).subscribe((res) => {
       console.log(res)
       this.types = res
     })
@@ -83,9 +72,6 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   }
 
   async scan(result:any) {
-    if(this.barcodeScanner) {
-      this.barcodeScanner.stop()
-    }
     console.log(result)
     this.scannerLoading=true
     if (result.codeResult) {
@@ -115,7 +101,7 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     }
     this.scannerLoading = false
     if (this.currentProduct.status===1) {
-
+      this.barcodeScanner.stop();
     } else {
       this.barcodeScanner.start()
     }
@@ -126,12 +112,12 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       this.error.status = false
       console.log(this.selectedType)
       let data= new FormData()
-      let badge = '%"id":'+this.selectedType.split('|')[1]+'%'
+      let badge = '%"id":1%'
       data.append('name',this.currentProduct.product.product_name)
       data.append('brand',this.currentProduct.product.brands)
       data.append('barcode',this.barcodeValue)
       data.append('image',this.currentProduct.product.image_url)
-      data.append('type',this.selectedType.split('|')[0])
+      data.append('type',this.selectedType.toString())
       data.append('user',getCurrentUser().id.toString())
       data.append('badge',badge)
       console.log(data.get('name'))

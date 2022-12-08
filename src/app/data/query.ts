@@ -74,7 +74,7 @@ export const setQuery = (query: any, id?: number | { user?: number, type?: numbe
     case QUERY.DELETE.DELETE_USER:
       return `${DEFAULT_QUERY + link.DELETE.DELETE_USER}/${id}`;
     case QUERY.GET.ALL_HISTORIES:
-      var {user, type} = id as { user?: number, type?: number };
+      const {user, type} = id as { user?: number, type?: number };
       if (user && !type) {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?user=${user}`;
       } else if (type && !user) {
@@ -93,12 +93,12 @@ export const setQuery = (query: any, id?: number | { user?: number, type?: numbe
     case QUERY.DELETE.DELETE_HISTORY:
       return `${DEFAULT_QUERY + link.DELETE.DELETE_HISTORY}/${id}`;
     case QUERY.GET.ALL_BADGES:
-    var {user} = id as { user?: number };
       if (user) {
-        return `${DEFAULT_QUERY + link.GET.ALL_BADGES}?user=${user}`;
+        return `${DEFAULT_QUERY + link.GET.ALL_BADGES}?user=${id}`;
       } else {
         return `${DEFAULT_QUERY + link.GET.ALL_BADGES}`;
-      }    case QUERY.GET.PROFILE_PICTURE:
+      }
+      case QUERY.GET.PROFILE_PICTURE:
       return `${DEFAULT_QUERY + link.GET.PROFILE_PICTURE}/${id}`;
 
     default:

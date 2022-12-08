@@ -118,9 +118,7 @@ nav {
 }
 
 #navContainer2 {
-  min-width: 400px;
   @include  min-lg {
-    min-width: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
