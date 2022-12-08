@@ -1,14 +1,23 @@
 <div *ngIf="loading" class="loading">
-  <h2 id="loading-text" class="loading_text"></h2>
+  <h2 id="loading-text" class="loading_text">Chargement...</h2>
 </div>
-<div class="product" *ngIf="!productError.status">
+<div class="product" *ngIf="!productError.status && !loading">
   <div class="product--container">
-    <p class="product--container_name">{{product.name}}</p>
+    <p class="product--container_name">{{product.name}} ({{product.brand}})</p>
     <img class="product--container_image" *ngIf="product.image" [src]="product.image" [class.verre]="product.type.includes('verre')" [class.textile]="product.type.includes('Textile')" [class.recyclable]="product.type.includes('recyclables')" [class.menager]="product.type.includes('ménagères')" alt="Photo du produit({{product.name}})">
     <p class="product--container_info">
       {{product.type}} :
     </p>
-    <a [class.verre]="product.type.includes('verre')" [class.textile]="product.type.includes('Textile')" [class.recyclable]="product.type.includes('recyclables')" [class.menager]="product.type.includes('ménagères')" [href]="'/?filter='+product.type">{{trashType}}</a>
+    <a *ngIf="!update" [class.verre]="product.type.includes('verre')" [class.textile]="product.type.includes('Textile')" [class.recyclable]="product.type.includes('recyclables')" [class.menager]="product.type.includes('ménagères')" [href]="'/?filter='+product.type">{{trashType}}</a>
+    <div *ngIf="update" class="product--container--update">
+      <p>Sélectionnez la matière de l'emballage de votre produit : </p>
+      <select name="id_type_id" id="type-select" [(ngModel)]="selectedType">
+        <option [value]="type.id+'|'+type.badgeId" *ngFor="let type of this.types">{{type.name}}</option>
+      </select>
+      <button class="product--container_update-btn" (click)="updateConfirm()">Confirmer les modifications</button>
+    </div>
+    <button class="product--container_update-btn" *ngIf="!update" (click)="updateInit()">Modifier ce produit</button>
+    <button class="product--container_update-btn" *ngIf="update" (click)="updateInit()">Annuler les modifications</button>
   </div>
 </div>
 
