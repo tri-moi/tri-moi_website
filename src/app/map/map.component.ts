@@ -105,16 +105,13 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
-        var popup = L.popup().setContent("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>")
-        var customPopUpOptions  = {className: 'customPopUp', 'max-width': '500'}
-
         markersCluster.addLayer(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
           icon: L.icon({
             iconUrl: icon,
             iconSize: [34, 40 ],
             iconAnchor:   [17, 42],
           })
-        }).bindPopup(popup, customPopUpOptions).openPopup()
+        }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup()
           .on('click', event => {
           this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
           // this.realTimeSearch()
