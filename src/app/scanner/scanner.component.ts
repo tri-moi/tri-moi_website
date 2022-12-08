@@ -90,10 +90,10 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     let checkBarcode: any = {}
     checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode', barcodeFormdata).toPromise()
     console.log(checkBarcode)
-    if (checkBarcode.message !=='success') {
-      let productData:any = {}
-      productData = await this.http.get('https://world.openfoodfacts.org/api/v0/product/'+this.barcodeValue+'.json').toPromise()
-      this.currentProduct=productData
+    if (checkBarcode.message !== 'success') {
+      let productData: any = {}
+      productData = await this.http.get('https://world.openfoodfacts.org/api/v0/product/' + this.barcodeValue + '.json').toPromise()
+      this.currentProduct = productData
       console.log(this.currentProduct)
     } else {
       this._router.navigateByUrl('/product/' + this.barcodeValue)
