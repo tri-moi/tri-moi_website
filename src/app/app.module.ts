@@ -51,7 +51,7 @@ import { ProductSheetComponent } from './product-sheet/product-sheet.component';
     LeafletMarkerClusterModule,
     FormsModule,
     HttpClientModule,
-    BarcodeScannerLivestreamModule,
+    BarcodeScannerLivestreamModule
   ],
   providers: [],
   bootstrap: [AppComponent]

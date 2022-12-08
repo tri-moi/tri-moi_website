@@ -1,6 +1,5 @@
 @import '../../assets/scss/variables';
 @import '../../assets/css/flexboxgrid.min.css';
-@import '../../assets/scss/global';
 
 
 .product--container {
@@ -65,33 +64,6 @@
     }
     &:hover {
       filter: brightness(0.9);
-    }
-  }
-  &_update-btn {
-    padding: $rad;
-    border: solid 2px $black;
-    margin-top: $pad;
-
-    &:hover {
-      filter: brightness(0.9);
-    }
-    @include min-sm {
-      margin-inline: auto;
-    }
-  }
-  &--update {
-    button {
-      padding: $rad;
-      border: solid 2px $black;
-      margin-top: $pad;
-      background-color: $success;
-
-      &:hover {
-        filter: brightness(0.9);
-      }
-      @include min-sm {
-        margin-inline: auto;
-      }
     }
   }
 }
