@@ -52,7 +52,7 @@ import {ParametreComponent} from './parametre/parametre.component';
     LeafletMarkerClusterModule,
     FormsModule,
     HttpClientModule,
-    BarcodeScannerLivestreamModule
+    BarcodeScannerLivestreamModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

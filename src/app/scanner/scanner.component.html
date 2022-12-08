@@ -1,38 +1,45 @@
 <div class="loading" *ngIf="scannerLoading">
   <h2 id="loading-text" class="loading_text">Chargement...</h2>
 </div>
-<div class="container">
+<div class="scanner_title" *ngIf="currentProduct.status!==1">
+  <img src="./assets/images/icons8-barcode-scanner-80.png">
+  <h4>Scanner le code barre</h4>
+</div>
+<!--<p>Placez le code barre du produit dans le cadre</p>-->
+<div class="scanner_error" *ngIf="currentProduct.status===0">
+  <p>Erreur : produit inconnu</p>
+</div>
+<div id="scannerContainer" *ngIf="currentProduct.status!==1">
   <div class="scanner-feed">
     <barcode-scanner-livestream
       [type]="['ean','upc']"
       (valueChanges)="scan($event)"
     ></barcode-scanner-livestream>
   </div>
-  <div class="scanner-dashboard">
-    <button (click)="scan($event)">
-      test
+</div>
+<div id="searchBarCodeContainer" *ngIf="currentProduct.status!==1">
+  <p>Ou entrez le code du produit</p>
+  <input [(ngModel)]="barcodeInput" type="number" name="barCodeNumber" id="barCodeNumber">
+  <button (click)="scan(barcodeInput)" type="button" class="button buttonBlack">
+    <div class="buttonBlackText">Valider</div>
+  </button>
+</div>
+<div class="scanner-dashboard">
+  <div *ngIf="currentProduct.status===1">
+    <p>{{currentProduct.product.product_name}} ({{currentProduct.product.brands}})</p>
+    <img *ngIf="currentProduct.product.image_url" [src]="currentProduct.product.image_url" alt="">
+    <div>
+      <app-error-box *ngIf="error.status" class="error-box" [error]="error.message"></app-error-box>
+      <p>Sélectionnez la matière de l'emballage de votre produit : </p>
+      <select name="id_type_id" id="type-select" [(ngModel)]="selectedType">
+        <option value="" selected>Veuillez choisir une option</option>
+        <option [value]="type.id+'|'+type.badgeId" *ngFor="let type of this.types">{{type.name}}</option>
+      </select>
+    </div>
+    <button (click)="sendData()">
+      Envoyer
     </button>
-
-    <div *ngIf="currentProduct.status===0">
-      <p>erreur : {{currentProduct.status_verbose}}</p>
-    </div>
-    <div *ngIf="currentProduct.status===1">
-      <p>{{currentProduct.product.product_name}}</p>
-      <img *ngIf="currentProduct.product.image_url" [src]="currentProduct.product.image_url" alt="">
-      <div>
-        <app-error-box *ngIf="error.status" class="error-box" [error]="error.message"></app-error-box>
-        <p>Sélectionnez la matière de l'emballage de votre produit : </p>
-        <select name="id_type_id" id="type-select" [(ngModel)]="selectedType">
-          <option value="" selected>Veuillez choisir une option</option>
-          <option [value]="type.id" *ngFor="let type of this.types">{{type.name}}</option>
-        </select>
-      </div>
-      <button (click)="sendData()">
-        Envoyer
-      </button>
-    </div>
   </div>
-
 </div>
 
 

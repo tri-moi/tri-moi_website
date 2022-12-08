@@ -19,10 +19,11 @@ export class ScannerComponent implements AfterViewInit, OnInit {
   }
 
   @ViewChild(BarcodeScannerLivestreamComponent)
-  barcodeScanner: BarcodeScannerLivestreamComponent;
-  barcodeValue: any;
-  currentProduct: any = {
-    status: null
+  barcodeScanner:BarcodeScannerLivestreamComponent;
+  barcodeValue:any='';
+  barcodeInput:string |  number = ''
+  currentProduct:any = {
+    status:null
   };
   error: any = {
     status: false,
@@ -38,7 +39,18 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       return
     }
     let link = setQuery(QUERY.GET.ALL_TYPES)
-    this.http.get(link).subscribe((res) => {
+    this.http.get(link).subscribe((res:any) => {
+      res.map((e:any )=> {
+        if (e.name.includes('Textile')) {
+          e.badgeId=4
+        } else if (e.name.includes('recyclable')) {
+          e.badgeId=1
+        } else if (e.name.includes('verre')) {
+          e.badgeId=2
+        } else {
+          e.badgeId=3
+        }
+      })
       console.log(res)
       this.types = res
     })
@@ -70,10 +82,21 @@ export class ScannerComponent implements AfterViewInit, OnInit {
 
   }
 
-  async scan(result: any) {
-    this.currentProduct.status = null
+  async scan(result:any) {
+    if(this.barcodeScanner) {
+      this.barcodeScanner.stop()
+    }
+    console.log(result)
+    this.scannerLoading=true
+    if (result.codeResult) {
+      this.barcodeValue=result.codeResult.code
+    } else if (this.barcodeInput!=='') {
+      this.barcodeValue=this.barcodeInput
+    } else {
+      this.barcodeValue='3168930159896'
+    }
+    this.currentProduct.status=null
     this.scannerLoading = true
-    this.barcodeValue = '3017620422003'
     let barcodeFormdata = new FormData()
     barcodeFormdata.append('barcode', this.barcodeValue)
     barcodeFormdata.append('user', getCurrentUser().id)
@@ -91,8 +114,10 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       return
     }
     this.scannerLoading = false
-    if (this.currentProduct.status === 1) {
-      this.barcodeScanner.stop();
+    if (this.currentProduct.status===1) {
+
+    } else {
+      this.barcodeScanner.start()
     }
   }
 
@@ -100,14 +125,15 @@ export class ScannerComponent implements AfterViewInit, OnInit {
     if (this.selectedType) {
       this.error.status = false
       console.log(this.selectedType)
-      let data = new FormData()
-      let date = new Date()
-      data.append('name', this.currentProduct.product.product_name)
-      data.append('brand', this.currentProduct.product.brands)
-      data.append('barcode', this.barcodeValue)
-      data.append('image', this.currentProduct.product.image_url)
-      data.append('type', this.selectedType.toString())
-      data.append('user', getCurrentUser().id.toString())
+      let data= new FormData()
+      let badge = '%"id":'+this.selectedType.split('|')[1]+'%'
+      data.append('name',this.currentProduct.product.product_name)
+      data.append('brand',this.currentProduct.product.brands)
+      data.append('barcode',this.barcodeValue)
+      data.append('image',this.currentProduct.product.image_url)
+      data.append('type',this.selectedType.split('|')[0])
+      data.append('user',getCurrentUser().id.toString())
+      data.append('badge',badge)
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
       let sentProduct = await this.http.post(link, data).toPromise()

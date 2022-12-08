@@ -1,7 +1,53 @@
 @import '~src/assets/scss/variables';
 @import '../../assets/scss/global';
 
+#scannerTitle,
+#searchBarCodeContainer {
+  margin: 50px 0;
+  padding: 0 20px;
+}
 
-.scanner-feed {
-  max-width: 600px;
+
+#searchBarCodeContainer p,
+#searchBarCodeContainer input {
+  margin-bottom: 20px;
+}
+
+#scannerContainer {
+  background-color: $black;
+  padding: 50px;
+}
+
+.scanner {
+  &-feed {
+    max-width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  &_error {
+    width: 100%;
+    background-color: $error;
+    padding-block: $pad;
+    margin-top: $pad;
+    p {
+      text-align: center;
+    }
+  }
+  &_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    & img {
+      width: 50px;
+      margin-right: 10px;
+    }
+  }
+}
+
+
+#searchBarCodeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
