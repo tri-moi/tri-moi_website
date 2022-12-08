@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {User} from "../type/User";
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @ViewChild('menuCheckbox') menuCheckbox:any;
+  @ViewChild('menuCheckbox') menuCheckbox: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   login = false
 
-  closeMenu(){
+  closeMenu() {
     console.log(this.menuCheckbox)
     this.menuCheckbox.nativeElement.checked = false;
     console.log(this.menuCheckbox)
@@ -30,8 +32,8 @@ export class HeaderComponent implements OnInit {
     return JSON.parse(jsonData != null ? jsonData : "");
   }
 
-  get userProfilPic(): any {
-    const user = this.getLocalStorage()
-    return user.profilePicture
+  get userIdUser(): any {
+    const user: User = this.getLocalStorage()
+    return user.id
   }
 }

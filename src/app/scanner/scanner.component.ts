@@ -1,9 +1,9 @@
-import { BarcodeScannerLivestreamComponent } from "ngx-barcode-scanner";
-import { Component, ViewChild, AfterViewInit, OnInit } from "@angular/core";
+import {BarcodeScannerLivestreamComponent} from "ngx-barcode-scanner";
+import {Component, ViewChild, AfterViewInit, OnInit} from "@angular/core";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {QUERY, setQuery} from "../data/query";
-import { getLoggedIn, getCurrentUser } from '../global-functions/global-functions.module';
-import { Router } from "@angular/router";
+import {getLoggedIn, getCurrentUser} from '../global-functions/global-functions.module';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-scanner',
@@ -13,22 +13,27 @@ import { Router } from "@angular/router";
 
 export class ScannerComponent implements AfterViewInit, OnInit {
   private _router: Router;
-  constructor(private http: HttpClient,_router: Router) { this._router = _router; }
+
+  constructor(private http: HttpClient, _router: Router) {
+    this._router = _router;
+  }
+
   @ViewChild(BarcodeScannerLivestreamComponent)
-  barcodeScanner:BarcodeScannerLivestreamComponent;
-  barcodeValue:any;
-  currentProduct:any = {
-    status:null
+  barcodeScanner: BarcodeScannerLivestreamComponent;
+  barcodeValue: any;
+  currentProduct: any = {
+    status: null
   };
-  error:any = {
-    status:false,
+  error: any = {
+    status: false,
     message: 'Veuillez choisir un type de produit.'
   }
-  types:any=[];
-  selectedType:any
-  scannerLoading:boolean=true
+  types: any = [];
+  selectedType: any
+  scannerLoading: boolean = true
+
   ngOnInit(): void {
-    if (getLoggedIn() === false) {
+    if (!getLoggedIn()) {
       this._router.navigateByUrl('/auth')
       return
     }
@@ -38,20 +43,21 @@ export class ScannerComponent implements AfterViewInit, OnInit {
       this.types = res
     })
   }
+
   ngAfterViewInit(): void {
 
-    let loadingElement=document.getElementById('loading-text')
+    let loadingElement = document.getElementById('loading-text')
     setInterval(() => {
-      if (this.scannerLoading===true) {
-        if (loadingElement && loadingElement.textContent==='Chargement...') {
+      if (this.scannerLoading) {
+        if (loadingElement && loadingElement.textContent === 'Chargement...') {
           loadingElement.textContent = 'Chargement.'
-        } else if (loadingElement && loadingElement.textContent==='Chargement.') {
+        } else if (loadingElement && loadingElement.textContent === 'Chargement.') {
           loadingElement.textContent = 'Chargement..'
         } else if (loadingElement) {
           loadingElement.textContent = 'Chargement...'
         }
       }
-    },400)
+    }, 400)
     let start = new Promise((resolve, reject) => {
       resolve(this.barcodeScanner.start());
     }).then(() => {
@@ -59,55 +65,55 @@ export class ScannerComponent implements AfterViewInit, OnInit {
         console.log(this.scannerLoading)
       }
     ).catch((e) => {
-      console.log("couldn't start scanner : ",e)
+      console.log("couldn't start scanner : ", e)
     });
 
   }
 
-  async scan(result:any) {
-    this.currentProduct.status=null
+  async scan(result: any) {
+    this.currentProduct.status = null
     this.scannerLoading = true
-    this.barcodeValue='3017620422003'
+    this.barcodeValue = '3017620422003'
     let barcodeFormdata = new FormData()
-    barcodeFormdata.append('barcode',this.barcodeValue)
-    barcodeFormdata.append('user',getCurrentUser().id)
+    barcodeFormdata.append('barcode', this.barcodeValue)
+    barcodeFormdata.append('user', getCurrentUser().id)
     console.log(barcodeFormdata)
-    let checkBarcode:any = {}
-    checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise()
+    let checkBarcode: any = {}
+    checkBarcode = await this.http.post('http://127.0.0.1:8000/api/check-barcode', barcodeFormdata).toPromise()
     console.log(checkBarcode)
-    if (checkBarcode.message !=='success') {
-      let productData:any = {}
-      productData = await this.http.get('https://world.openfoodfacts.org/api/v0/product/'+this.barcodeValue+'.json').toPromise()
-      this.currentProduct=productData
+    if (checkBarcode.message !== 'success') {
+      let productData: any = {}
+      productData = await this.http.get('https://world.openfoodfacts.org/api/v0/product/' + this.barcodeValue + '.json').toPromise()
+      this.currentProduct = productData
       console.log(this.currentProduct)
     } else {
-      this._router.navigateByUrl('/product/'+this.barcodeValue)
+      this._router.navigateByUrl('/product/' + this.barcodeValue)
       return
     }
     this.scannerLoading = false
-    if (this.currentProduct.status===1) {
+    if (this.currentProduct.status === 1) {
       this.barcodeScanner.stop();
     }
   }
+
   async sendData() {
     if (this.selectedType) {
       this.error.status = false
       console.log(this.selectedType)
-      let data= new FormData()
+      let data = new FormData()
       let date = new Date()
-      data.append('name',this.currentProduct.product.product_name)
-      data.append('brand',this.currentProduct.product.brands)
-      data.append('barcode',this.barcodeValue)
-      data.append('image',this.currentProduct.product.image_url)
-      data.append('type',this.selectedType.toString())
-      data.append('user',getCurrentUser().id.toString())
+      data.append('name', this.currentProduct.product.product_name)
+      data.append('brand', this.currentProduct.product.brands)
+      data.append('barcode', this.barcodeValue)
+      data.append('image', this.currentProduct.product.image_url)
+      data.append('type', this.selectedType.toString())
+      data.append('user', getCurrentUser().id.toString())
       console.log(data.get('name'))
       let link = setQuery(QUERY.POST.CREATE_HISTORY)
-      let sentProduct = await this.http.post(link,data).toPromise()
-      this._router.navigateByUrl('/product/'+this.barcodeValue)
+      let sentProduct = await this.http.post(link, data).toPromise()
+      this._router.navigateByUrl('/product/' + this.barcodeValue)
       return
-    }
-    else {
+    } else {
       console.log('error')
       this.error.status = true
     }

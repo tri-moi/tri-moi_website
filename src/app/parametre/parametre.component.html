@@ -1,0 +1,64 @@
+<h2 style="text-align: center;margin-top: 30px">Modifer vos informations</h2>
+<div class="wrapper">
+  <hr style="border-color: #161616;margin-bottom: 50px">
+  <div>
+    <input (input)="onChange($event)" type="text" name="lastName" id="lastName" placeholder="Nom"
+           value="{{formData.lastName}}">
+    <button name="lastName" (click)="buttonClick($event)" *ngIf="button.lastName"
+            class="button buttonBlack buttonBlackText"
+            style="display: inline;margin-left: 10px">actualiser
+    </button>
+  </div>
+  <div>
+    <input (input)="onChange($event)" type="text" name="firstName" id="firstName" placeholder="Prénom"
+           value="{{formData.firstName}}">
+    <button name="firstName" (click)="buttonClick($event)" *ngIf="button.firstName"
+            class="button buttonBlack buttonBlackText"
+            style="display: inline;margin-left: 10px">actualiser
+    </button>
+  </div>
+  <div>
+    <input (input)="onChange($event)" type="text" name="email" id="email" placeholder="Email"
+           value="{{formData.email}}">
+    <button name="email" (click)="buttonClick($event)" *ngIf="button.email"
+            class="button buttonBlack buttonBlackText"
+            style="display: inline;margin-left: 10px">actualiser
+    </button>
+  </div>
+
+  <div>
+    <input (input)="onChange($event)" type="date" name="birthDate" id="birthDate"
+           value="{{formData.birthDate}}">
+    <button name="birthDate" (click)="buttonClick($event)" *ngIf="button.birthDate"
+            class="button buttonBlack buttonBlackText"
+            style="display: inline; margin-left: 10px">actualiser
+    </button>
+  </div>
+  <div style="display: flex">
+    <input name="profilePicture" type="file"
+           (change)="onChange($event)">
+
+    <button name="profilePicture" *ngIf="button.profilePicture" (click)="onUpload()"
+            class="button buttonBlack buttonBlackText">
+      Upload
+    </button>
+  </div>
+  <img id="img_profil_pic" class="img-profil-pic" src="http://127.0.0.1:8000/api/profil-pic/{{userData.id}}" alt="profil-pic">
+
+
+  <style>
+    .wrapper {
+      margin: 20px auto 0;
+      width: 80%;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .img-profil-pic {
+      width: 500px;
+    }
+  </style>
+</div>

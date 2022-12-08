@@ -1,5 +1,5 @@
 <div id="profilContainer">
-  <img id="profilPic" src="{{userProfilPic}}">
+  <img id="profilPic" src="http://127.0.0.1:8000/api/profil-pic/{{userIdUser}}">
   <h4>{{userFirstName}} {{userLastName}}</h4>
   <p>{{userEmail}}</p>
   <div id="profilLinksContainer">
@@ -15,7 +15,7 @@
       <img src="./assets/images/icons8-message-64.png">
       <p class="profilLinksText">Contact</p>
     </a>
-    <a class="profilLinks" routerLink="">
+    <a class="profilLinks" routerLink="/parametres">
       <img src="./assets/images/icons8-setting-64.png">
       <p class="profilLinksText">Paramètres</p>
     </a>
