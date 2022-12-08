@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {getLoggedIn} from '../global-functions/global-functions.module';
 import {QUERY, setQuery} from "../data/query";
 import {HttpClient} from "@angular/common/http";
+import { LoggedInService } from '../logged-in.service';
 
 interface IFormData {
   email: string | null;
@@ -29,10 +30,11 @@ interface IFormErrors {
 })
 
 export class RegisterComponent implements OnInit {
+  [x: string]: any;
 
   private _router: Router;
 
-  constructor(_router: Router, private route: ActivatedRoute, private _http: HttpClient) {
+  constructor(_router: Router, private route: ActivatedRoute, private _http: HttpClient,private authenticationService: LoggedInService) {
     this._router = _router;
   }
 
@@ -74,6 +76,7 @@ export class RegisterComponent implements OnInit {
       }
     }, 400)
     if (getLoggedIn()) {
+      this.authenticationService.logout()
       localStorage.removeItem('user')
       this._router.navigateByUrl("/")
     }
@@ -147,6 +150,8 @@ export class RegisterComponent implements OnInit {
           if (data.success === true) {
             data.user = {...data.user, isLoggedIn: true}
             localStorage.setItem('user', JSON.stringify(data.user));
+            this.authenticationService.login()
+            console.log('auth')
             this._router.navigateByUrl("/");
             return
           } else {

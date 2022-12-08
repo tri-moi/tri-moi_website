@@ -68,13 +68,7 @@
     }
   }
   &_update-btn {
-    padding: $rad;
-    border: solid 2px $black;
     margin-top: $pad;
-
-    &:hover {
-      filter: brightness(0.9);
-    }
     @include min-sm {
       margin-inline: auto;
     }
@@ -92,6 +86,19 @@
       @include min-sm {
         margin-inline: auto;
       }
+    }
+  }
+  button {
+    padding: $rad;
+    border: solid 2px $black;
+    margin-top: $pad;
+    background-color: $green;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+    @include min-sm {
+      margin-inline: auto;
     }
   }
 }
