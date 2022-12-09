@@ -7,6 +7,7 @@
 @import 'assets/scss/global';
 
 
+
 //INPUT / LABEL
 
 input {
@@ -35,6 +36,7 @@ input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+
   &:hover {
     cursor: pointer;
     background-position: left bottom;
@@ -69,7 +71,7 @@ input:focus {
 
 .buttonGreenText,
 .buttonBlackText,
-.buttonRedText{
+.buttonRedText {
   text-align: center;
   font-size: 16px;
   line-height: 30px;
@@ -116,7 +118,9 @@ nav {
 }
 
 #navContainer2 {
+  min-width: 400px;
   @include  min-lg {
+    min-width: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -191,9 +195,11 @@ nav ul li a:active,
 #navMenuLinkHome:hover {
   background-color: $warning;
 }
+
 #navMenuLinkAbout:hover {
   background-color: $error;
 }
+
 #navMenuLinkContact:hover {
   background-color: $blue;
 }
@@ -225,13 +231,16 @@ nav ul li a:active,
 }
 
 .profilLinkHeader img {
-    width: 44px;
-    border: solid 2px black;
-    border-radius: 100%;
-  }
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border: solid 2px black;
+  border-radius: 100%;
+}
 
 .contactLinkHeader {
   background-color: $green;
+
   &:hover {
     color: $white;
     background-color: $black;
@@ -280,23 +289,6 @@ input[type="checkbox"] {
   }
 }
 
-//FOOTER
-
-#footer {
-  border-top: solid 2px $black;
-  //position: fixed;
-  //bottom: 0;
-  width: 100%;
-}
-
-#footerLogo {
-  font-size: 20px;
-  padding: 20px 50px;
-  @include min-md {
-    padding: 20px 20px;
-  }
-}
-
 //LEAFLET
 
 .customPopUp .leaflet-popup-content-wrapper {
@@ -308,4 +300,20 @@ input[type="checkbox"] {
 .customPopUp .leaflet-popup-tip {
   background-color: black;
   border: solid 2px black;
+}
+
+
+//FOOTER
+
+#footer {
+  border-top: solid 2px $black;
+  width: 100%;
+}
+
+#footerLogo {
+  font-size: 20px;
+  padding: 20px 50px;
+  @include min-md {
+    padding: 20px 20px;
+  }
 }

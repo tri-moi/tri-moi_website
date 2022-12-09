@@ -174,8 +174,6 @@ export class RegisterComponent implements OnInit {
           let link = setQuery(QUERY.AUTH.REGISTER)
           this._http.post(link, formData).subscribe((data: any) => {
             if (data.success === true) {
-              data.user = {...data.user, isLoggedIn: true}
-              localStorage.setItem('user', JSON.stringify(data.user));
               this._router.navigateByUrl("/");
             } else {
               this.errors = data.error

@@ -10,6 +10,8 @@ type IQuery = {
     ALL_TRASHES: string;
     ONE_TRASH: string;
     ONE_HISTORY: string;
+    ALL_BADGES: string;
+    PROFILE_PICTURE: string;
   }
   POST: {
     CREATE_TRASH: string;
@@ -72,7 +74,7 @@ export const setQuery = (query: any, id?: number | { user?: number, type?: numbe
     case QUERY.DELETE.DELETE_USER:
       return `${DEFAULT_QUERY + link.DELETE.DELETE_USER}/${id}`;
     case QUERY.GET.ALL_HISTORIES:
-      const {user, type} = id as { user?: number, type?: number };
+      var {user, type} = id as { user?: number, type?: number };
       if (user && !type) {
         return `${DEFAULT_QUERY + link.GET.ALL_HISTORIES}?user=${user}`;
       } else if (type && !user) {
@@ -90,6 +92,14 @@ export const setQuery = (query: any, id?: number | { user?: number, type?: numbe
       return `${DEFAULT_QUERY + link.PUT.UPDATE_HISTORY}/${id}?_method=PUT`;
     case QUERY.DELETE.DELETE_HISTORY:
       return `${DEFAULT_QUERY + link.DELETE.DELETE_HISTORY}/${id}`;
+    case QUERY.GET.ALL_BADGES:
+    var {user} = id as { user?: number };
+      if (user) {
+        return `${DEFAULT_QUERY + link.GET.ALL_BADGES}?user=${user}`;
+      } else {
+        return `${DEFAULT_QUERY + link.GET.ALL_BADGES}`;
+      }    case QUERY.GET.PROFILE_PICTURE:
+      return `${DEFAULT_QUERY + link.GET.PROFILE_PICTURE}/${id}`;
 
     default:
       return "Query not found";
@@ -102,10 +112,12 @@ const link: IQuery = {
     ALL_TYPES: "types",
     ALL_TRASHES: "trashes",
     ALL_HISTORIES: "histories",
+    ALL_BADGES: "badges",
     ONE_USER: "users",
     ONE_TYPE: "types",
     ONE_TRASH: "trash",
     ONE_HISTORY: "history",
+    PROFILE_PICTURE: "profil-pic",
   },
   POST: {
     CREATE_TRASH: "trash",
@@ -137,10 +149,12 @@ export const QUERY: IQuery = {
     ONE_USER: "one_user",
     ALL_TYPES: "all_types",
     ALL_HISTORIES: "all_histories",
+    ALL_BADGES: "all_badges",
     ONE_TYPE: "one_type",
     ALL_TRASHES: "all_trashes",
     ONE_TRASH: "one_trash",
     ONE_HISTORY: "one_history",
+    PROFILE_PICTURE: "profile_picture",
   },
   POST: {
     CREATE_TRASH: "create_trash",
