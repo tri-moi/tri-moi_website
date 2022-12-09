@@ -44,7 +44,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
-      if (this.loading===true) {
+      if (this.loading) {
         if (loadingElement && loadingElement.textContent==='Chargement...') {
           loadingElement.textContent = 'Chargement.'
         } else if (loadingElement && loadingElement.textContent==='Chargement.') {
@@ -105,8 +105,8 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
-        var popup = L.popup().setContent("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>")
-        var customPopUpOptions  = {className: 'customPopUp', 'max-width': '500'}
+        const popup = L.popup().setContent("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>")
+        const customPopUpOptions  = {className: 'customPopUp', 'max-width': '500'}
 
         markersCluster.addLayer(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
           icon: L.icon({
