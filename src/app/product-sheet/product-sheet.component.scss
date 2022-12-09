@@ -102,6 +102,15 @@
     }
   }
 }
+.error {
+  margin: 50px auto;
+  width: 50%;
+  min-width: 300px;
+  text-align: start;
+  @include min-sm {
+    text-align: center;
+  }
+}
 
 #produitImageContainer,
 h4,

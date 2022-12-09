@@ -56,6 +56,7 @@ export class ProductSheetComponent implements OnInit {
       } else {
         this.productError.status=true
         this.productError.message=res.message
+        this.loading=false
       }
       this.pickTrashType()
       this.loading=false
