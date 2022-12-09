@@ -114,7 +114,6 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
-        
         const popup = L.popup().setContent("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>")
         const customPopUpOptions  = {className: 'customPopUp', 'max-width': '500'}
 
