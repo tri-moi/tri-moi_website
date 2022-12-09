@@ -1,14 +1,18 @@
-<div id="profilContainer">
+<div class="loading" *ngIf="loading">
+  <h2 id="loading-text" class="loading_text">Chargement...</h2>
+</div>
+
+<div *ngIf="!loading" id="profilContainer">
   <img id="profilPic" src="http://127.0.0.1:8000/api/profil-pic/{{userIdUser}}">
   <h4>{{userFirstName}} {{userLastName}}</h4>
   <p>{{userEmail}}</p>
   <div id="profilLinksContainer">
     <a class="profilLinks" routerLink="/badge">
-      <h4>0</h4>
+      <h4>{{badges}}</h4>
       <p class="profilLinksText">Badges</p>
     </a>
     <a class="profilLinks" routerLink="/historique">
-      <h4>0</h4>
+      <h4>{{products}}</h4>
       <p class="profilLinksText">Déchets scannés</p>
     </a>
     <a class="profilLinks" routerLink="">

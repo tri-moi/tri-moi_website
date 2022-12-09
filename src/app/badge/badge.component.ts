@@ -40,12 +40,16 @@ export class BadgeComponent implements OnInit {
       Object.values(res.badges).forEach((item:any) => {
         console.log(item)
         if (item.badge.id ===1) {
+          item.image='recyclable'
           recyclables.push(item)
         } else if (item.badge.id ===2) {
+          item.image='glass'
           verre.push(item)
         } else if (item.badge.id ===3) {
+          item.image='household'
           menageres.push(item)
         } else if (item.badge.id ===4) {
+          item.image='textile'
           textiles.push(item)
         }
       })
