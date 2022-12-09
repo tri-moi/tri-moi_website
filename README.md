@@ -7,3 +7,5 @@ Apres avoir cloné le projet, l'ouvrir dans un terminal puis installer les dépe
 ## Lancer le serveur
 
 lancer `ng serve` dans le terminal de votre projet.
+
+### Pour les informations sur comment lancer l'API', voyez le readme dans son dossier
