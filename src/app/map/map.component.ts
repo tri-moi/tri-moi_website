@@ -5,6 +5,7 @@ import algoliasearch from 'algoliasearch/lite';
 import * as L from 'leaflet';
 import { environment } from '../../environments/environment'
 import { ActivatedRoute } from '@angular/router';
+import {User} from "../type/User";
 
 let searchClient:any = algoliasearch(
   environment.algolia_id,
@@ -17,6 +18,14 @@ let index = searchClient.initIndex('pav');
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+
+  login = false
+
+  ngOnInit(): void {
+    const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
+    isLoggedIn === true ? this.login = true : this.login = false
+  }
+
   private map:any;
   @ViewChild('myInput') myInput: any;
   constructor(private route: ActivatedRoute) { }
@@ -44,7 +53,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
-      if (this.loading===true) {
+      if (this.loading) {
         if (loadingElement && loadingElement.textContent==='Chargement...') {
           loadingElement.textContent = 'Chargement.'
         } else if (loadingElement && loadingElement.textContent==='Chargement.') {
