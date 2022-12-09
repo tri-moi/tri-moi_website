@@ -109,7 +109,6 @@ export class ParametreComponent implements OnInit {
         this.button[name] = false;
       }
     } else {
-      console.log("error")
     }
   }
 
@@ -130,7 +129,6 @@ export class ParametreComponent implements OnInit {
   // Inject service
   // On file Select
   onUpload() {
-    console.log(this.userData.id)
     if (this.file) {
       this.fileUploadService.upload(this.file).subscribe((event: any) => {
         if (typeof (event) === 'object') {

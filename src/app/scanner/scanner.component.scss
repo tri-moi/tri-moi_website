@@ -42,6 +42,23 @@
       margin-right: 10px;
     }
   }
+  &-dashboard {
+    margin: 50px auto;
+    width: 50%;
+    min-width: 300px;
+    text-align: start;
+    @include min-sm {
+      text-align: center;
+    }
+    img,select {
+      margin-block: $pad;
+    }
+    button {
+      @include min-sm {
+        margin-inline: auto;
+      }
+    }
+  }
 }
 
 

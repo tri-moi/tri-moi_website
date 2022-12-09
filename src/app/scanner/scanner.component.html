@@ -3,7 +3,7 @@
 </div>
 <div class="scanner_title" *ngIf="currentProduct.status!==1">
   <img src="./assets/images/icons8-barcode-scanner-80.png">
-  <h4>Scanner le code barre</h4>
+  <h4>Scannez le code barre</h4>
 </div>
 <!--<p>Placez le code barre du produit dans le cadre</p>-->
 <div class="scanner_error" *ngIf="currentProduct.status===0">
@@ -36,8 +36,8 @@
         <option [value]="type.id+'|'+type.badgeId" *ngFor="let type of this.types">{{type.name}}</option>
       </select>
     </div>
-    <button (click)="sendData()">
-      Envoyer
+    <button class="button buttonBlack" (click)="sendData()">
+      <div class="buttonBlackText">Valider</div>
     </button>
   </div>
 </div>

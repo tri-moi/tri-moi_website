@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import { LoggedInService } from '../logged-in.service';
 import {User} from "../type/User";
 
 @Component({
@@ -10,21 +11,26 @@ export class HeaderComponent implements OnInit {
 
   @ViewChild('menuCheckbox') menuCheckbox: any;
 
-  constructor() {
+  constructor(private authenticationService: LoggedInService) {
+    this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
+      if (loggedIn===true) {
+        this.login=true
+      } else {
+        this.login=false
+      }
+    });
   }
 
-  login = false
+  login:boolean
 
   closeMenu() {
-    console.log(this.menuCheckbox)
     this.menuCheckbox.nativeElement.checked = false;
-    console.log(this.menuCheckbox)
 
   }
 
   ngOnInit(): void {
-    const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
-    isLoggedIn === true ? this.login = true : this.login = false
+    this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
+    });
   }
 
   getLocalStorage(): any {

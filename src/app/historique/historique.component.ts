@@ -39,7 +39,6 @@ export class HistoriqueComponent implements OnInit {
     let test = new Promise((resolve, reject) => {
       resolve(this.http.get('http://127.0.0.1:8000/api/productCounts/'+getCurrentUser().id).toPromise());
     }).then((res:any) => {
-      console.log('test',res)
       this.productCounts = res
       if (this.productCounts.total>10) {
         this.showPagination=true;
@@ -54,7 +53,6 @@ export class HistoriqueComponent implements OnInit {
     let history = new Promise((resolve, reject) => {
       resolve(this.http.get('http://127.0.0.1:8000/api/historyByUser/' + getCurrentUser().id+'?page='+page).toPromise());
     }).then((res: any) => {
-      console.log(res)
       this.loading = false
       this.history=res
       this.page=page

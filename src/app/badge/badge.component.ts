@@ -31,21 +31,23 @@ export class BadgeComponent implements OnInit {
     }
     let link = setQuery(QUERY.GET.ALL_BADGES,{user:getCurrentUser().id})
     this.http.get(link).subscribe((res:any) => {
-      console.log(res)
       let recyclables:any=[]
       let verre:any=[]
       let menageres:any=[]
       let textiles:any=[]
       let categories   = []
       Object.values(res.badges).forEach((item:any) => {
-        console.log(item)
         if (item.badge.id ===1) {
+          item.image='recyclable'
           recyclables.push(item)
         } else if (item.badge.id ===2) {
+          item.image='glass'
           verre.push(item)
         } else if (item.badge.id ===3) {
+          item.image='household'
           menageres.push(item)
         } else if (item.badge.id ===4) {
+          item.image='textile'
           textiles.push(item)
         }
       })

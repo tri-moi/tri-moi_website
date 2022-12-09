@@ -22,8 +22,6 @@ export class FileUploadService {
     const formData = new FormData();
 
     // Store form name as "file" with file data
-    console.log("file", file)
-    console.log("file.name", file.name)
     formData.append("file", file, file.name);
     formData.append("type", "profilePicture");
 

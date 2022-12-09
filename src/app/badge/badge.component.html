@@ -7,9 +7,7 @@
     <div class="badges--category" *ngFor="let category of badges">
       <div class="badges--category--item" [class.verre]="badge.badge.name.includes('verre')" [class.textiles]="badge.badge.name.includes('textile')" [class.recyclables]="badge.badge.name.includes('recyclable')" [class.menageres]="badge.badge.name.includes('ménagères')" *ngFor="let badge of category ,let index = index">
         <p>{{badge.badge.name}} : {{badge.level.name}}</p>
-        <div [class.done]="badge.scanNumber>=badge.level.goal" class="badges--category--item_medal">
-
-        </div>
+        <img src="./assets/images/{{badge.level.name}}_{{badge.image}}.png" alt="badge {{badge.level.name}}" [class.done]="badge.scanNumber>=badge.level.goal" class="badges--category--item_medal">
         <div [class.done]="badge.scanNumber>=badge.level.goal" class="badges--category--item--bar">
           <div class="badges--category--item--bar_percentage" [style]="{width: (badge.scanNumber/badge.level.goal)*100+'%'}">
             <p>{{badge.scanNumber}}/{{badge.level.goal}}</p>
