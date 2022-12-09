@@ -23,7 +23,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     index.search('').then(({ hits }) => {
-      console.log(hits);
     });
   }
 

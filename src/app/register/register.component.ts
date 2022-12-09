@@ -151,7 +151,6 @@ export class RegisterComponent implements OnInit {
             data.user = {...data.user, isLoggedIn: true}
             localStorage.setItem('user', JSON.stringify(data.user));
             this.authenticationService.login()
-            console.log('auth')
             this._router.navigateByUrl("/");
             return
           } else {

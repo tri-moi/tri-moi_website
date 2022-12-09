@@ -49,7 +49,6 @@ export class ProductSheetComponent implements OnInit {
       barcodeFormdata.append('user',getCurrentUser().id)
       resolve(checkBarcode = this.http.post('http://127.0.0.1:8000/api/check-barcode',barcodeFormdata).toPromise());
     }).then((res:any) => {
-        console.log(res)
       if (res.history) {
         this.product=res.history
         this.selectedType=this.product.typeId
@@ -62,7 +61,6 @@ export class ProductSheetComponent implements OnInit {
       this.loading=false
       }
     ).catch((e) => {
-      console.log("Error : ",e)
     });
   }
   pickTrashType() {
@@ -86,7 +84,6 @@ export class ProductSheetComponent implements OnInit {
     } else {
       this.product.badgeId=3
     }
-    console.log(this.product)
     if(this.update===false) {
       this.loading=true
       let link = setQuery(QUERY.GET.ALL_TYPES)
@@ -102,7 +99,6 @@ export class ProductSheetComponent implements OnInit {
             e.badgeId=3
           }
         })
-        console.log(res)
         this.types = res
         this.update=true
         this.loading=false
@@ -113,7 +109,6 @@ export class ProductSheetComponent implements OnInit {
   }
   updateConfirm() {
     let data=new FormData()
-    console.log(this.product)
     data.append('id',this.product.id)
     data.append('type',this.selectedType.split('|')[0])
     data.append('oldBadgeId',this.product.badgeId)
@@ -124,7 +119,6 @@ export class ProductSheetComponent implements OnInit {
     let start = new Promise((resolve, reject) => {
       resolve(this.http.post('http://127.0.0.1:8000/api/history/'+this.product.id+'?_method=PUT',data).toPromise());
     }).then((res:any) => {
-      console.log(res)
       window.location.reload()
     })
   }

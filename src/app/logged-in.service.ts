@@ -19,7 +19,6 @@ export class LoggedInService {
 
   loginStatusChange(): Observable<any> {
     this.loggedIn.subscribe((loggedIn:any )=> {
-      console.log('loggedIn',loggedIn)
     })
     return this.loggedIn.asObservable();
   }

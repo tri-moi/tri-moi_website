@@ -56,7 +56,6 @@ export class MapComponent implements AfterViewInit {
     },400)
     this.route.queryParamMap
       .subscribe((params:any) => {
-        console.log(params.params.filter)
         this.urlFilter = params.params.filter
       })
     if (this.urlFilter && (this.urlFilter === 'Textile' || this.urlFilter === 'Emballages recyclables' || this.urlFilter === 'Emballages en verre' || this.urlFilter === 'Ordures ménagères')) {
@@ -81,7 +80,6 @@ export class MapComponent implements AfterViewInit {
       ])
     }
     this.goToGeoloc()
-    console.log(this.userLayer)
   }
   searchMultiple(queries:any) {
     searchClient.multipleQueries(queries).then((results:any) => {
@@ -120,13 +118,11 @@ export class MapComponent implements AfterViewInit {
         }))
     })
     // this.layers = markers
-    console.log(markersCluster)
     this.layerGroup = markersCluster
 
   }
   addToFilters(filter:any, value:any) {
     this.filters = filter+':"'+value+'"'
-    console.log(this.filters)
     this.loading = true
     this.searchMultiple([{
         indexName:'pav',
@@ -221,12 +217,9 @@ export class MapComponent implements AfterViewInit {
   }
   goToMarker(marker:any,name:string = '') {
     this.zoom = 15
-    console.log('marker',marker)
     this.center = (new L.LatLng(marker.fields.geo_point_2d[0], marker.fields.geo_point_2d[1]))
     this.disableAutocomplete()
-    console.log('name')
     if (name !== '') {
-      console.log('pas name')
       this.myInput.nativeElement.value =name
       this.searchQuery = name
       this.disableAutocomplete()

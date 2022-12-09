@@ -31,14 +31,12 @@ export class BadgeComponent implements OnInit {
     }
     let link = setQuery(QUERY.GET.ALL_BADGES,{user:getCurrentUser().id})
     this.http.get(link).subscribe((res:any) => {
-      console.log(res)
       let recyclables:any=[]
       let verre:any=[]
       let menageres:any=[]
       let textiles:any=[]
       let categories   = []
       Object.values(res.badges).forEach((item:any) => {
-        console.log(item)
         if (item.badge.id ===1) {
           item.image='recyclable'
           recyclables.push(item)

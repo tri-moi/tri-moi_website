@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authenticationService: LoggedInService) {
     this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
-      console.log('loggedIn',loggedIn)
       if (loggedIn===true) {
         this.login=true
       } else {
@@ -25,16 +24,12 @@ export class HeaderComponent implements OnInit {
   login:boolean
 
   closeMenu() {
-    console.log(this.menuCheckbox)
     this.menuCheckbox.nativeElement.checked = false;
-    console.log(this.menuCheckbox)
 
   }
 
   ngOnInit(): void {
-    console.log('header')
     this.authenticationService.loginStatusChange().subscribe((loggedIn:any )=> {
-      console.log('loggedIn',loggedIn)
     });
   }
 
