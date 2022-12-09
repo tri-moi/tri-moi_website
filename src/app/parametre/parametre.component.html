@@ -1,7 +1,7 @@
 <h2 style="text-align: center;margin-top: 30px">Modifer vos informations</h2>
 <div class="wrapper">
   <hr style="border-color: #161616;margin-bottom: 50px">
-  <div>
+  <div style="margin-bottom:20px">
     <input (input)="onChange($event)" type="text" name="lastName" id="lastName" placeholder="Nom"
            value="{{formData.lastName}}">
     <button name="lastName" (click)="buttonClick($event)" *ngIf="button.lastName"
@@ -9,7 +9,7 @@
             style="display: inline;margin-left: 10px">actualiser
     </button>
   </div>
-  <div>
+  <div style="margin-bottom:20px">
     <input (input)="onChange($event)" type="text" name="firstName" id="firstName" placeholder="Prénom"
            value="{{formData.firstName}}">
     <button name="firstName" (click)="buttonClick($event)" *ngIf="button.firstName"
@@ -17,7 +17,7 @@
             style="display: inline;margin-left: 10px">actualiser
     </button>
   </div>
-  <div>
+  <div style="margin-bottom:20px">
     <input (input)="onChange($event)" type="text" name="email" id="email" placeholder="Email"
            value="{{formData.email}}">
     <button name="email" (click)="buttonClick($event)" *ngIf="button.email"
@@ -26,7 +26,7 @@
     </button>
   </div>
 
-  <div>
+  <div style="margin-bottom:20px">
     <input (input)="onChange($event)" type="date" name="birthDate" id="birthDate"
            value="{{formData.birthDate}}">
     <button name="birthDate" (click)="buttonClick($event)" *ngIf="button.birthDate"
@@ -34,7 +34,7 @@
             style="display: inline; margin-left: 10px">actualiser
     </button>
   </div>
-  <div style="display: flex">
+  <div style="display: flex; margin-bottom:20px">
     <input name="profilePicture" type="file"
            (change)="onChange($event)">
 
