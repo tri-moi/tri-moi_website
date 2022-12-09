@@ -5,6 +5,7 @@ import algoliasearch from 'algoliasearch/lite';
 import * as L from 'leaflet';
 import { environment } from '../../environments/environment'
 import { ActivatedRoute } from '@angular/router';
+import {User} from "../type/User";
 
 let searchClient:any = algoliasearch(
   environment.algolia_id,
@@ -17,6 +18,14 @@ let index = searchClient.initIndex('pav');
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+
+  login = false
+
+  ngOnInit(): void {
+    const isLoggedIn = JSON.parse(localStorage.getItem("user") ?? "{}").isLoggedIn
+    isLoggedIn === true ? this.login = true : this.login = false
+  }
+
   private map:any;
   @ViewChild('myInput') myInput: any;
   constructor(private route: ActivatedRoute) { }
@@ -44,7 +53,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let loadingElement=document.getElementById('loading-text')
     setInterval(() => {
-      if (this.loading===true) {
+      if (this.loading) {
         if (loadingElement && loadingElement.textContent==='Chargement...') {
           loadingElement.textContent = 'Chargement.'
         } else if (loadingElement && loadingElement.textContent==='Chargement.') {
@@ -103,13 +112,16 @@ export class MapComponent implements AfterViewInit {
       } else {
         icon = './assets/images/icons8-household.png'
       }
+        const popup = L.popup().setContent("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>")
+        const customPopUpOptions  = {className: 'customPopUp', 'max-width': '500'}
+
         markersCluster.addLayer(L.marker([ hit.fields.geo_point_2d[0], hit.fields.geo_point_2d[1] ], {
           icon: L.icon({
             iconUrl: icon,
             iconSize: [34, 40 ],
             iconAnchor:   [17, 42],
           })
-        }).bindPopup("<p>"+hit.fields.pavtyp+"<br><b>"+hit.fields.adresse+"</b></p>").openPopup()
+        }).bindPopup(popup, customPopUpOptions).openPopup()
           .on('click', event => {
           this.searchQuery = hit['fields']['adresse']+', '+hit['fields']['commune']
           // this.realTimeSearch()
