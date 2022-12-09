@@ -54,7 +54,7 @@ export class ParametreComponent implements OnInit {
     password: '',
     confirmPassword: '',
     profilePicture: this.userData.profilePicture || '',
-    birthDate: this.userData.birthDate.date.split(" ")[0] || ''
+    birthDate: this.userData.birthDate?.date.split(" ")[0] || ''
   };
 
 
